@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema')),
     path('api/', include(common_urls)),
+    path('api/i18n/', include('django.conf.urls.i18n')),
 ]
 
 if settings.DEBUG:

@@ -1,12 +1,9 @@
-# Django Template Project
+# Formidable
 
 <a href="https://github.com/psf/black">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" 
     alt="Code style Black">
 </a>
-
-This project is intended to provide a nice and comfortable way to start a new project with Django
-and it's common settings.
 
 ### Project setup (Windows)
 

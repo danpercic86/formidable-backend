@@ -1,10 +1,6 @@
-from typing import final, AnyStr, Final
+from typing import AnyStr
 
-from django.db.models import Model, BooleanField, SlugField, CharField
-from django.utils.translation import gettext as _
-from model_utils import Choices
-from model_utils.fields import MonitorField
-from model_utils.models import TimeStampedModel, StatusModel
+from django.db.models import Model, SlugField
 
 
 class SlugableModel(Model):
@@ -36,29 +32,3 @@ class BaseModel(Model):
         from django.utils.html import format_html
 
         return format_html(f"<a href='{self.get_change_url()}'>{self}</a>")
-
-
-@final
-class Example(TimeStampedModel, StatusModel, BaseModel):
-    """
-    Example model docstring that should be visible in Django documentation
-    """
-
-    STATUS: Final[Choices] = Choices('published', 'reviewed')
-
-    name = CharField(
-        _('example name'),
-        max_length=300,
-        help_text=_('Some help text that is shown in documentation'),
-    )
-    published_at = MonitorField(
-        _('publishing datetime'), monitor='status', when=['published'], editable=False
-    )
-
-    published: Manager
-
-    def __str__(self) -> AnyStr:
-        return str(self.name)
-
-    class Meta:
-        db_table = 'examples'

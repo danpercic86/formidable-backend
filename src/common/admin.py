@@ -1,6 +1,4 @@
-from django.contrib.admin import ModelAdmin, register
-
-from common.models import Example
+from django.contrib.admin import ModelAdmin
 
 
 class BaseModelAdmin(ModelAdmin):
@@ -19,14 +17,3 @@ CREATED_MODIFIED = (
         'description': 'Info about the time this entry was added here or updated',
     },
 )
-
-
-@register(Example)
-class ExampleAdmin(BaseModelAdmin):
-    fieldsets = (
-        (None, {'fields': ('name', 'status', 'status_changed', 'published_at')}),
-        CREATED_MODIFIED,
-    )
-    list_display = ('name', 'status', 'status_changed', 'published_at')
-    list_editable = ('status',)
-    readonly_fields = BaseModelAdmin.readonly_fields + ('status_changed', 'published_at')

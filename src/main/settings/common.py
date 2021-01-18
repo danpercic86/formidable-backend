@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-from typing import AnyStr
 
 from django.contrib.admin import AdminSite
 
@@ -24,9 +23,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 CONFIG_FILE = os.path.join(BASE_DIR, '..', 'config.yml')
 config = Config(CONFIG_FILE)
 
-AdminSite.site_title = config.get('SITE_TITLE', 'Django Template Project')
-AdminSite.site_header = config.get('SITE_HEADER', 'Django Template Project')
-AdminSite.index_title = config.get('INDEX_TITLE', 'Django Template Administration')
+AdminSite.site_title = config.get('SITE_TITLE', 'Formidable')
+AdminSite.site_header = config.get('SITE_HEADER', 'Formidable')
+AdminSite.index_title = config.get('INDEX_TITLE', 'Formidable Administration')
 SECRET_KEY = config.get('SECRET_KEY', raise_error=True)
 DEBUG = config.get('DEBUG', False, cast=bool)
 ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', cast=list)
@@ -53,6 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -80,16 +80,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-def get_db_backend_name() -> AnyStr:
-    return 'mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.' + get_db_backend_name(),
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config.get('DB_NAME', raise_error=True),
         'USER': config.get('DB_USER', default='root'),
         'PASSWORD': config.get('DB_PASSWORD', default='toor'),
@@ -121,8 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Europe/Bucharest'
-USE_I18N = False
-USE_L10N = False
+USE_I18N = True
+USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -194,9 +189,9 @@ JAZZMIN_SETTINGS = {
     # used for favicon and brand on top left
     # 'site_logo': 'books/img/logo.png',
     # Welcome text on the login screen
-    'welcome_sign': 'Welcome to the library',
+    'welcome_sign': 'Welcome to Formidable Management & Verifying System',
     # Copyright on the footer
-    'copyright': 'Acme Library Ltd',
+    'copyright': 'Dan Percic',
     # The model admin to search from the search bar, search bar omitted if excluded
     'search_model': 'administration.User',
     # Field name on user model that contains avatar image
