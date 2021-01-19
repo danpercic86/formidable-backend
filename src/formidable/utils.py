@@ -3,7 +3,6 @@ from typing import AnyStr, Callable, Optional, Union, List, Tuple
 import os
 import datetime
 import yaml
-from django.utils.decorators import method_decorator
 
 
 class Config:
@@ -53,7 +52,3 @@ def get_upload_path(instance, file_name: AnyStr) -> AnyStr:
     model_name = model.verbose_name_plural.replace(' ', '_')
     file_name, extension = file_name.rsplit('.', 1)
     return f'{model_name}/{file_name}_{str(datetime.datetime.now())[:19]}.{extension}'
-
-
-def create_swagger_info(schema):
-    return method_decorator(name='create', decorator=schema)

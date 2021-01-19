@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from common.utils import Config
+from formidable.utils import Config
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 

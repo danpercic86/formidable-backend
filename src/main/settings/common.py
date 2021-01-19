@@ -14,7 +14,7 @@ from pathlib import Path
 
 from django.contrib.admin import AdminSite
 
-from common.utils import Config
+from formidable.utils import Config
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
@@ -32,7 +32,7 @@ ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', cast=list)
 
 INSTALLED_APPS = [
     'administration',
-    'common',
+    'formidable',
     'rest_framework',
     'drf_spectacular',
     'corsheaders',
@@ -174,7 +174,11 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API Description',
     'TOS': None,
     # Optional: MAY contain 'name', 'url', 'email'
-    'CONTACT': {'name': 'Contact name', 'url': 'https://google.com', 'email': 'Contact email'},
+    'CONTACT': {
+        'name': 'Dan Percic',
+        'url': 'https://percic.live',
+        'email': 'danpercic86@gmail.com',
+    },
     # Optional: MUST contain 'name', MAY contain URL
     'LICENSE': {},
     'VERSION': '0.1.0',
