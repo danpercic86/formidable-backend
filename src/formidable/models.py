@@ -36,7 +36,7 @@ class BaseModel(Model):
         from django.urls import reverse_lazy
 
         return reverse_lazy(
-            f'admin:{self._meta.app_label}_{self._meta.model_name}_change',
+            f"admin:{self._meta.app_label}_{self._meta.model_name}_change",
             args=[str(self.id)],
         )
 
@@ -91,7 +91,7 @@ class FormField(TimeStampedModel, BaseModel):
         constraints = [
             CheckConstraint(
                 name="form_field_type_valid",
-                check=Q(type__in=[value for value in FieldTypes.values]),
+                check=Q(type__in=FieldTypes.values),
             )
         ]
 
@@ -111,6 +111,8 @@ class Choice(TimeStampedModel, BaseModel):
 
 
 class Validator(BaseModel):
+    requires_context = True
+
     field = ForeignKey(
         FormField,
         verbose_name=_("field to validate"),
@@ -126,15 +128,29 @@ class Validator(BaseModel):
     inverse_match = BooleanField()
     flags = CharField(choices=RegexFlags.choices, default="", max_length=5, blank=True)
 
-    def __call__(self, value, field_name: AnyStr):
+    class Meta:
+        db_table = "validators"
+        constraints = [
+            CheckConstraint(
+                name="validator_type_valid",
+                check=Q(type__in=ValidatorTypes.values),
+            ),
+            CheckConstraint(
+                name="validator_flag_valid",
+                check=Q(flags__in=[""] + RegexFlags.values),
+            ),
+        ]
+
+    def __call__(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
         """
         Validate that the input contains (or does *not* contain, if
         inverse_match is True) a match for the regular expression.
         """
-        if validate_attr := getattr(self, "validate_" + self.type):
-            return validate_attr(value, field_name)
+        if validate_attr := getattr(self, "validate_" + self.type, None):
+            return validate_attr(value, field)
+        return None
 
-    def validate_regex(self, value, field: FormField) -> Optional[ValidationError]:
+    def validate_regex(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
         flags: int = 0
         for flag in str(self.flags).split(","):
             flags |= int(flag)
@@ -148,6 +164,7 @@ class Validator(BaseModel):
                     "field": field.id,
                 }
             )
+        return None
 
     def validate_minlength(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
         if not isinstance(value, str):
@@ -161,6 +178,7 @@ class Validator(BaseModel):
                     "field": field.id,
                 }
             )
+        return None
 
     def validate_maxlength(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
         if not isinstance(value, str):
@@ -174,6 +192,7 @@ class Validator(BaseModel):
                     "field": field.id,
                 }
             )
+        return None
 
 
 class Response(TimeStampedModel, StatusModel, BaseModel):

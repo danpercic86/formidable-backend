@@ -1,15 +1,25 @@
 from django.contrib.admin import ModelAdmin, StackedInline, register
 
+from formidable.model_fields import (
+    CREATED,
+    MODIFIED,
+    SLUG,
+    NAME,
+    FIELDS,
+    FIELD,
+    STATUS_CHANGED,
+    FORM,
+)
 from formidable.models import FormField, Form, Validator, Choice, ResponseField, Response
 
 
 class BaseModelAdmin(ModelAdmin):
-    list_filter = ('created', 'modified')
-    readonly_fields = ('created', 'modified')
+    list_filter = (CREATED, MODIFIED)
+    readonly_fields = (CREATED, MODIFIED)
 
 
 class SlugableModelAdmin(ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {SLUG: (NAME,)}
 
 
 class FormFieldInline(StackedInline):
@@ -35,7 +45,7 @@ class ValidatorsInline(StackedInline):
 @register(FormField)
 class FormFieldAdmin(BaseModelAdmin):
     inlines = (ChoicesInline, ValidatorsInline)
-    search_fields = ("name",)
+    search_fields = (NAME,)
 
 
 class FieldInline(StackedInline):
@@ -46,21 +56,21 @@ class FieldInline(StackedInline):
 @register(Choice)
 class ChoiceAdmin(BaseModelAdmin):
     inlines = (FieldInline,)
-    filter_horizontal = ("fields",)
+    filter_horizontal = (FIELDS,)
 
 
 class ResponseFieldInline(StackedInline):
     model = ResponseField
     extra = 0
-    autocomplete_fields = ("field",)
-    readonly_fields = ("status_changed", "created", "modified")
+    autocomplete_fields = (FIELD,)
+    readonly_fields = (STATUS_CHANGED, CREATED, MODIFIED)
     verbose_name = "response"
 
 
 @register(Response)
 class ResponseAdmin(BaseModelAdmin):
     inlines = (ResponseFieldInline,)
-    readonly_fields = ("form", "status_changed", "created", "modified")
+    readonly_fields = (FORM, STATUS_CHANGED, CREATED, MODIFIED)
 
 
 @register(Validator)

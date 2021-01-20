@@ -3,6 +3,8 @@ import re
 from django.db.models import TextChoices, IntegerChoices
 from django.utils.translation import gettext as _
 
+from formidable.model_fields import CREATED, MODIFIED
+
 
 class FieldTypes(TextChoices):
     TEXT = "text", _("text")
@@ -37,10 +39,10 @@ class RegexFlags(IntegerChoices):
 
 
 CREATED_MODIFIED = (
-    'Created / Modified',
+    "Created / Modified",
     {
-        'fields': ('created', 'modified'),
-        'classes': ('collapse',),
-        'description': 'Info about the time this entry was added here or updated',
+        "fields": (CREATED, MODIFIED),
+        "classes": ("collapse",),
+        "description": "Info about the time this entry was added here or updated",
     },
 )

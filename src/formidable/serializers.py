@@ -4,18 +4,19 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 
 from formidable.models import ResponseField, Response, FormField, Choice, Validator, Form
+from formidable.model_fields import *
 
 
 class ChoiceSerializer(ModelSerializer):
     class Meta:
         model = Choice
-        exclude = "created", "modified", "fields"
+        exclude = CREATED, MODIFIED, FIELDS
 
 
 class ValidatorSerializer(ModelSerializer):
     class Meta:
         model = Validator
-        exclude = "field", "description", "is_enabled"
+        exclude = FIELD, DESCRIPTION, IS_ENABLED
 
 
 class FormFieldSerializer(ModelSerializer):
@@ -24,7 +25,7 @@ class FormFieldSerializer(ModelSerializer):
 
     class Meta:
         model = FormField
-        exclude = "created", "modified", "form"
+        exclude = CREATED, MODIFIED, FORM
 
 
 class FormSerializer(ModelSerializer):
@@ -32,13 +33,13 @@ class FormSerializer(ModelSerializer):
 
     class Meta:
         model = Form
-        exclude = "created", "modified"
+        exclude = CREATED, MODIFIED
 
 
 class ResponseFieldSerializer(ModelSerializer):
     class Meta:
         model = ResponseField
-        exclude = "created", "modified", "response", "status_changed"
+        exclude = CREATED, MODIFIED, RESPONSE, STATUS_CHANGED
 
 
 class ResponseSerializer(ModelSerializer):
@@ -46,17 +47,17 @@ class ResponseSerializer(ModelSerializer):
 
     class Meta:
         model = Response
-        exclude = "created", "modified"
+        exclude = CREATED, MODIFIED
 
     def create(self, validated_data: Dict):
-        fields_data: List[Dict] = validated_data.pop("fields")
+        fields_data: List[Dict] = validated_data.pop(FIELDS)
         for field_data in fields_data:
             form_field: FormField
-            if form_field := field_data.get("field"):
+            if form_field := field_data.get(FIELD):
                 errors = {}
                 for validator in form_field.validators.filter(is_enabled=True):
                     error: ValidationError
-                    if error := validator(field_data.get("value"), form_field):
+                    if error := validator(field_data.get(VALUE), form_field):
                         errors.update(error.detail)
                 if errors:
                     raise ValidationError(errors)
@@ -71,13 +72,13 @@ class ResponseFieldCreateSerializer(ModelSerializer):
     class Meta:
         model = ResponseField
         exclude = (
-            "created",
-            "modified",
-            "response",
-            "status_changed",
-            "errors",
-            "observations",
-            "status",
+            CREATED,
+            MODIFIED,
+            RESPONSE,
+            STATUS_CHANGED,
+            ERRORS,
+            OBSERVATIONS,
+            STATUS,
         )
 
 
@@ -86,4 +87,4 @@ class ResponseCreateSerializer(ModelSerializer):
 
     class Meta:
         model = Response
-        exclude = "created", "modified", "status", "status_changed"
+        exclude = CREATED, MODIFIED, STATUS, STATUS_CHANGED
