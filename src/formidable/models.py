@@ -1,8 +1,6 @@
 from typing import AnyStr, Optional
 
 from django.db.models import (
-    Model,
-    SlugField,
     CharField,
     TextField,
     ForeignKey,
@@ -18,63 +16,36 @@ from model_utils import Choices
 from model_utils.models import TimeStampedModel, StatusModel
 from rest_framework.exceptions import ValidationError
 
+from formidable.abstractions import BaseModel
 from formidable.constants import FieldTypes, ValidatorTypes, RegexFlags
-
-
-class SlugableModel(Model):
-    slug = SlugField(unique=True, db_index=True)
-
-    class Meta:
-        abstract = True
-
-
-class BaseModel(Model):
-    class Meta:
-        abstract = True
-
-    def get_change_url(self) -> AnyStr:
-        from django.urls import reverse_lazy
-
-        return reverse_lazy(
-            f"admin:{self._meta.app_label}_{self._meta.model_name}_change",
-            args=[str(self.id)],
-        )
-
-    @property
-    def href(self):
-        """
-        Use this property in admin dashboard to show this object's name as html anchor
-        that redirects to object's edit page
-        @return:
-        """
-        from django.utils.html import format_html
-
-        return format_html(f"<a href='{self.get_change_url()}'>{self}</a>")
 
 
 class Form(TimeStampedModel, BaseModel):
     name = CharField(_("form name"), max_length=200)
     description = TextField(_("form description"), max_length=500, blank=True, default="")
-    button_text = CharField(_("submit button text"), max_length=50)
+    button_text = CharField(_("submit button text"), max_length=50, default="Submit")
+
+    class Meta:
+        db_table = "forms"
+        verbose_name = _("form")
+        verbose_name_plural = _("forms")
 
 
 class FormField(TimeStampedModel, BaseModel):
+    name = CharField(_("field name"), max_length=100)
     form = ForeignKey(
         Form,
         on_delete=CASCADE,
-        verbose_name=_("form this filed belongs to"),
+        verbose_name=_("related form"),
         related_name="fields",
         related_query_name="field",
     )
-    name = CharField(_("field name"), max_length=100)
-    type = CharField(
-        _("field type"), max_length=50, choices=FieldTypes.choices, default=FieldTypes.TEXT
-    )
+    type = CharField(_("type"), max_length=50, choices=FieldTypes.choices, default=FieldTypes.TEXT)
     placeholder = CharField(_("placeholder"), max_length=200, default="", blank=True)
     dependent_field = ForeignKey(
         "FormField",
-        verbose_name=_("depends on"),
         on_delete=CASCADE,
+        verbose_name=_("depends on"),
         related_name="dependents",
         related_query_name="dependent",
         limit_choices_to={"type__in": [FieldTypes.SELECT, FieldTypes.CHECKBOX, FieldTypes.RADIO]},
@@ -84,13 +55,15 @@ class FormField(TimeStampedModel, BaseModel):
     dependent_value = CharField(_("with value"), max_length=200, default="", blank=True)
 
     # for IDE autocomplete purposes only
-    choices: ManyToManyField
+    # choices: ManyToManyField
 
     class Meta:
         db_table = "fields"
+        verbose_name = _("field")
+        verbose_name_plural = _("fields")
         constraints = [
             CheckConstraint(
-                name="form_field_type_valid",
+                name="field_type_valid",
                 check=Q(type__in=FieldTypes.values),
             )
         ]
@@ -100,7 +73,7 @@ class Choice(TimeStampedModel, BaseModel):
     name = CharField(_("choice name"), max_length=300)
     fields = ManyToManyField(
         FormField,
-        verbose_name=_('"select" form fields'),
+        verbose_name=_("fields"),
         related_name="choices",
         related_query_name="choice",
         limit_choices_to={"type__in": [FieldTypes.SELECT, FieldTypes.CHECKBOX, FieldTypes.RADIO]},
@@ -108,6 +81,8 @@ class Choice(TimeStampedModel, BaseModel):
 
     class Meta:
         db_table = "choices"
+        verbose_name = _("choice")
+        verbose_name_plural = _("choices")
 
 
 class Validator(BaseModel):
@@ -115,21 +90,23 @@ class Validator(BaseModel):
 
     field = ForeignKey(
         FormField,
+        on_delete=CASCADE,
         verbose_name=_("field to validate"),
         related_name="validators",
         related_query_name="validator",
-        on_delete=CASCADE,
     )
-    type = CharField(max_length=10, choices=ValidatorTypes.choices, default=None)
-    constraint = CharField(max_length=500)
-    message = CharField(max_length=500, default="", blank=True)
-    description = CharField(max_length=500, default="", blank=True)
-    is_enabled = BooleanField(default=True)
-    inverse_match = BooleanField()
-    flags = CharField(choices=RegexFlags.choices, default="", max_length=5, blank=True)
+    type = CharField(_("type"), max_length=10, choices=ValidatorTypes.choices, default=None)
+    constraint = CharField(_("constraint"), max_length=500)
+    message = CharField(_("message"), max_length=500, default="", blank=True)
+    description = CharField(_("description"), max_length=500, default="", blank=True)
+    is_enabled = BooleanField(_("is enabled"), default=True)
+    inverse_match = BooleanField(_("inverse match"))
+    flags = CharField(_("flags"), choices=RegexFlags.choices, default="", max_length=5, blank=True)
 
     class Meta:
         db_table = "validators"
+        verbose_name = _("validator")
+        verbose_name_plural = _("validators")
         constraints = [
             CheckConstraint(
                 name="validator_type_valid",
@@ -195,26 +172,44 @@ class Validator(BaseModel):
         return None
 
 
-class Response(TimeStampedModel, StatusModel, BaseModel):
+class Application(TimeStampedModel, StatusModel, BaseModel):
     STATUS = Choices(("new", _("new")), ("err", _("has errors")), ("ok", _("ok")))
     form = ForeignKey(
-        Form, verbose_name=_("form this response belongs to"), on_delete=CASCADE, null=True
+        Form,
+        verbose_name=_("form this response belongs to"),
+        on_delete=CASCADE,
+        related_name="applications",
+        related_query_name="application",
     )
 
+    class Meta:
+        db_table = "applications"
+        verbose_name = _("application")
+        verbose_name_plural = _("applications")
 
-class ResponseField(TimeStampedModel, StatusModel, BaseModel):
+
+class Response(TimeStampedModel, StatusModel, BaseModel):
     STATUS = Choices(("new", _("new")), ("err", _("has errors")), ("ok", _("ok")))
 
     value = CharField(_("value"), max_length=500)
     field = ForeignKey(
-        FormField, verbose_name=_("field this response belongs to"), on_delete=CASCADE
-    )
-    response = ForeignKey(
-        Response,
-        verbose_name=_("application this response belongs to"),
+        FormField,
         on_delete=CASCADE,
+        verbose_name=_("field this response belongs to"),
+        related_name="responses",
+        related_query_name="response",
+    )
+    application = ForeignKey(
+        Application,
+        on_delete=CASCADE,
+        verbose_name=_("application this response belongs to"),
         related_name="fields",
         related_query_name="field",
     )
     errors = CharField(_("errors"), max_length=500, default="", blank=True)
     observations = CharField(_("observations"), max_length=500, default="", blank=True)
+
+    class Meta:
+        db_table = "responses"
+        verbose_name = _("response")
+        verbose_name_plural = _("responses")

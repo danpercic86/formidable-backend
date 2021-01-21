@@ -3,7 +3,7 @@ from typing import List, Dict
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 
-from formidable.models import ResponseField, Response, FormField, Choice, Validator, Form
+from formidable.models import Response, Application, FormField, Choice, Validator, Form
 from formidable.model_fields import *
 
 
@@ -38,7 +38,7 @@ class FormSerializer(ModelSerializer):
 
 class ResponseFieldSerializer(ModelSerializer):
     class Meta:
-        model = ResponseField
+        model = Response
         exclude = CREATED, MODIFIED, RESPONSE, STATUS_CHANGED
 
 
@@ -46,7 +46,7 @@ class ResponseSerializer(ModelSerializer):
     fields = ResponseFieldSerializer(many=True)
 
     class Meta:
-        model = Response
+        model = Application
         exclude = CREATED, MODIFIED
 
     def create(self, validated_data: Dict):
@@ -62,15 +62,15 @@ class ResponseSerializer(ModelSerializer):
                 if errors:
                     raise ValidationError(errors)
 
-        response = Response.objects.create(**validated_data)
+        response = Application.objects.create(**validated_data)
         for field_data in fields_data:
-            ResponseField.objects.create(response=response, **field_data)
+            Response.objects.create(response=response, **field_data)
         return response
 
 
 class ResponseFieldCreateSerializer(ModelSerializer):
     class Meta:
-        model = ResponseField
+        model = Response
         exclude = (
             CREATED,
             MODIFIED,
@@ -86,5 +86,5 @@ class ResponseCreateSerializer(ModelSerializer):
     fields = ResponseFieldCreateSerializer(many=True)
 
     class Meta:
-        model = Response
+        model = Application
         exclude = CREATED, MODIFIED, STATUS, STATUS_CHANGED

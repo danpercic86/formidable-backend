@@ -1,78 +1,95 @@
-from django.contrib.admin import ModelAdmin, StackedInline, register
+from django.contrib.admin import ModelAdmin, register
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.forms import ModelForm, ModelMultipleChoiceField
 
+from formidable.abstractions import BaseModelAdmin
+from formidable.inlines import ResponseInline, ValidatorsInline, FormFieldInline
 from formidable.model_fields import (
     CREATED,
     MODIFIED,
-    SLUG,
     NAME,
     FIELDS,
-    FIELD,
     STATUS_CHANGED,
     FORM,
+    DESCRIPTION,
+    BUTTON_TEXT,
+    APPLICATION,
+    TYPE,
+    CHOICES,
 )
-from formidable.models import FormField, Form, Validator, Choice, ResponseField, Response
+from formidable.models import FormField, Form, Validator, Choice, Response, Application
 
 
-class BaseModelAdmin(ModelAdmin):
-    list_filter = (CREATED, MODIFIED)
-    readonly_fields = (CREATED, MODIFIED)
+class FormFieldAdminForm(ModelForm):
+    choices = ModelMultipleChoiceField(
+        queryset=Choice.objects.all(),
+        required=False,
+        widget=FilteredSelectMultiple(
+            verbose_name=Choice._meta.verbose_name_plural, is_stacked=False
+        ),
+    )
+
+    class Meta:
+        model = FormField
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and self.instance.pk:
+            self.fields[CHOICES].initial = self.instance.choices.all()
+
+    def save(self, commit=True):
+        form_field: FormField = super().save(commit=False)
+
+        if commit:
+            form_field.save()
+
+        if form_field.pk:
+            form_field.choices = self.cleaned_data[CHOICES]
+            self.save_m2m()
+
+        return form_field
 
 
-class SlugableModelAdmin(ModelAdmin):
-    prepopulated_fields = {SLUG: (NAME,)}
-
-
-class FormFieldInline(StackedInline):
-    model = FormField
-    extra = 0
+@register(FormField)
+class FormFieldAdmin(BaseModelAdmin):
+    form = FormFieldAdminForm
+    inlines = (ValidatorsInline,)
+    search_fields = (NAME,)
+    list_display = ('__str__', FORM, TYPE)
+    list_filter = (FORM, TYPE, CREATED, MODIFIED)
+    list_select_related = (FORM,)
 
 
 @register(Form)
 class FormAdmin(BaseModelAdmin):
     inlines = (FormFieldInline,)
-
-
-class ChoicesInline(StackedInline):
-    model = FormField.choices.through
-    extra = 0
-
-
-class ValidatorsInline(StackedInline):
-    model = Validator
-    extra = 0
-
-
-@register(FormField)
-class FormFieldAdmin(BaseModelAdmin):
-    inlines = (ChoicesInline, ValidatorsInline)
-    search_fields = (NAME,)
-
-
-class FieldInline(StackedInline):
-    model = Choice.fields.through
-    extra = 0
+    list_display = (
+        '__str__',
+        DESCRIPTION,
+        BUTTON_TEXT,
+    )
+    list_editable = (BUTTON_TEXT,)
+    list_filter = (CREATED, MODIFIED)
 
 
 @register(Choice)
 class ChoiceAdmin(BaseModelAdmin):
-    inlines = (FieldInline,)
     filter_horizontal = (FIELDS,)
 
 
-class ResponseFieldInline(StackedInline):
-    model = ResponseField
-    extra = 0
-    autocomplete_fields = (FIELD,)
-    readonly_fields = (STATUS_CHANGED, CREATED, MODIFIED)
-    verbose_name = "response"
-
-
-@register(Response)
-class ResponseAdmin(BaseModelAdmin):
-    inlines = (ResponseFieldInline,)
+@register(Application)
+class ApplicationAdmin(BaseModelAdmin):
+    inlines = (ResponseInline,)
     readonly_fields = (FORM, STATUS_CHANGED, CREATED, MODIFIED)
 
 
 @register(Validator)
 class ValidatorAdmin(ModelAdmin):
     pass
+
+
+@register(Response)
+class ResponseAdmin(BaseModelAdmin):
+    readonly_fields = (APPLICATION, STATUS_CHANGED, CREATED, MODIFIED)

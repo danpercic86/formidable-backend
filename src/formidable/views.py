@@ -3,7 +3,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 
-from formidable.models import Form, Response
+from formidable.models import Form, Application
 from formidable.serializers import (
     FormSerializer,
     ResponseSerializer,
@@ -26,4 +26,4 @@ class FormViewSet(ModelViewSet):
 )
 class ResponseViewSet(ModelViewSet):
     serializer_class = ResponseSerializer
-    queryset: QuerySet[Response] = Response.objects.prefetch_related("fields").all()
+    queryset: QuerySet[Application] = Application.objects.prefetch_related("fields").all()
