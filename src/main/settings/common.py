@@ -14,7 +14,7 @@ from pathlib import Path
 
 from django.contrib.admin import AdminSite
 
-from formidable.utils import Config
+from main.settings import Config
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
