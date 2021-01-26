@@ -1,6 +1,6 @@
 from django.contrib.admin import StackedInline
 
-from formidable.model_fields import FIELD, STATUS_CHANGED, CREATED, MODIFIED
+from formidable.constants import FIELD, STATUS_CHANGED, CREATED, MODIFIED
 from formidable.models import FormField, Validator, Response
 
 

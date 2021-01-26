@@ -3,8 +3,22 @@ from typing import List, Dict
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 
+from formidable.constants import (
+    CREATED,
+    MODIFIED,
+    FIELDS,
+    IS_ENABLED,
+    DESCRIPTION,
+    FIELD,
+    FORM,
+    RESPONSE,
+    STATUS_CHANGED,
+    VALUE,
+    ERRORS,
+    OBSERVATIONS,
+    STATUS,
+)
 from formidable.models import Response, Application, FormField, Choice, Validator, Form
-from formidable.model_fields import *
 
 
 class ChoiceSerializer(ModelSerializer):

@@ -3,7 +3,7 @@ from typing import AnyStr
 from django.contrib.admin import ModelAdmin
 from django.db.models import Model, SlugField
 
-from formidable.model_fields import CREATED, MODIFIED, SLUG, NAME
+from formidable.constants import CREATED, MODIFIED, SLUG, NAME
 
 
 #               MODELS
@@ -27,7 +27,8 @@ class BaseModel(Model):
             return slug
         return self.__class__.__name__ + " " + str(self.id)
 
-    def get_change_url(self) -> AnyStr:
+    @property
+    def change_url(self) -> AnyStr:
         from django.urls import reverse_lazy
 
         return reverse_lazy(
@@ -44,7 +45,7 @@ class BaseModel(Model):
         """
         from django.utils.html import format_html
 
-        return format_html(f"<a href='{self.get_change_url()}'>{self}</a>")
+        return format_html(f"<a href='{self.change_url}'>{self}</a>")
 
 
 #              ADMIN
