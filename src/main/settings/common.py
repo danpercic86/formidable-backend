@@ -34,7 +34,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
 ]
+
+# for django allauth
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -135,7 +144,7 @@ ADMIN_THUMBNAIL_STYLE = {
 }
 ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}
 
-MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = config.get('DEFAULT_FROM_EMAIL') or config.get('EMAIL_HOST_USER')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -145,6 +154,11 @@ EMAIL_USE_TLS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
 SPECTACULAR_SETTINGS = {
@@ -287,3 +301,15 @@ JAZZMIN_SETTINGS = {
     # Add a language dropdown into the admin
     'language_chooser': True,
 }
+
+# DJANGO ALL AUTH SETTINGS
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# DJ REST AUTH SETTINGS
+REST_USE_JWT = True
