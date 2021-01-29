@@ -54,9 +54,6 @@ class FormField(TimeStampedModel, BaseModel):
     )
     dependent_value = CharField(_("with value"), max_length=200, default="", blank=True)
 
-    # for IDE autocomplete purposes only
-    # choices: ManyToManyField
-
     class Meta:
         db_table = "fields"
         verbose_name = _("field")
@@ -86,8 +83,6 @@ class Choice(TimeStampedModel, BaseModel):
 
 
 class Validator(BaseModel):
-    requires_context = True
-
     field = ForeignKey(
         FormField,
         on_delete=CASCADE,

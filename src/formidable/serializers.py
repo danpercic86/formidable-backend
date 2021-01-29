@@ -53,7 +53,7 @@ class FormSerializer(ModelSerializer):
 class ResponseFieldSerializer(ModelSerializer):
     class Meta:
         model = Response
-        exclude = CREATED, MODIFIED, RESPONSE, STATUS_CHANGED
+        exclude = CREATED, MODIFIED, STATUS_CHANGED
 
 
 class ResponseSerializer(ModelSerializer):
@@ -88,7 +88,6 @@ class ResponseFieldCreateSerializer(ModelSerializer):
         exclude = (
             CREATED,
             MODIFIED,
-            RESPONSE,
             STATUS_CHANGED,
             ERRORS,
             OBSERVATIONS,

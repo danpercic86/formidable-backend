@@ -19,7 +19,7 @@ class FormViewSet(ModelViewSet):
 @extend_schema_view(
     create=extend_schema(
         description="Create new response",
-        auth=[],
+        auth=None,
         request=ResponseCreateSerializer,
         responses={status.HTTP_201_CREATED: ResponseSerializer},
     )
