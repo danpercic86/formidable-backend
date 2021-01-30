@@ -16,7 +16,7 @@ class FormFieldAdminForm(ModelForm):
 
     class Meta:
         model = FormField
-        fields = '__all__'
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

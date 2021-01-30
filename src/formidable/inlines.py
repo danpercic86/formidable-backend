@@ -21,7 +21,18 @@ class FormFieldInline(StackedInline):
     model = FormField
     extra = 0
     fieldsets = (
-        (None, {'fields': (TYPE, NAME, PLACEHOLDER, (DEPENDENT_FIELD, DEPENDENT_VALUE), CHOICES)}),
+        (
+            None,
+            {
+                "fields": (
+                    TYPE,
+                    NAME,
+                    PLACEHOLDER,
+                    (DEPENDENT_FIELD, DEPENDENT_VALUE),
+                    CHOICES,
+                )
+            },
+        ),
     )
 
 

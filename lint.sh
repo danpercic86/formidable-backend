@@ -16,11 +16,11 @@ print_warn() {
 }
 
 print_success "Running black..."
-if ! black --check -v --diff --color -S src; then
+if ! black --check -v --diff --color src; then
   print_error "Black errors found! Run auto-formatter? (y/n)"
   read -r option
   if [ "$option" == "y" ]; then
-    black -S src
+    black src
   else
     print_warn "Black code style skipped!"
   fi
@@ -29,9 +29,9 @@ else
 fi
 
 print_success 'Running pylint...'
-pylint src --rcfile=.pylintrc
+pylint src
 print_success 'Done pylint!'
 
 print_success 'Running pycodestyle...'
-pycodestyle --exclude=migrations --max-line-length=100 src
+pycodestyle --exclude=migrations --max-line-length=88 src
 print_success 'Done pycodestyle!'

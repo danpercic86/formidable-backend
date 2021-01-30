@@ -23,7 +23,7 @@ class FormFieldAdmin(BaseModelAdmin):
     form = FormFieldAdminForm
     inlines = (ValidatorsInline,)
     search_fields = (NAME,)
-    list_display = ('__str__', FORM, TYPE)
+    list_display = ("__str__", FORM, TYPE)
     list_filter = (FORM, TYPE, CREATED, MODIFIED)
     list_select_related = (FORM,)
 
@@ -32,7 +32,7 @@ class FormFieldAdmin(BaseModelAdmin):
 class FormAdmin(BaseModelAdmin):
     inlines = (FormFieldInline,)
     list_display = (
-        '__str__',
+        "__str__",
         DESCRIPTION,
         BUTTON_TEXT,
     )

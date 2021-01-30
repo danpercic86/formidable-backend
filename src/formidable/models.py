@@ -22,7 +22,9 @@ from formidable.constants import FieldTypes, ValidatorTypes, RegexFlags
 
 class Form(TimeStampedModel, BaseModel):
     name = CharField(_("form name"), max_length=200)
-    description = TextField(_("form description"), max_length=500, blank=True, default="")
+    description = TextField(
+        _("form description"), max_length=500, blank=True, default=""
+    )
     button_text = CharField(_("submit button text"), max_length=50, default="Submit")
 
     class Meta:
@@ -40,7 +42,9 @@ class FormField(TimeStampedModel, BaseModel):
         related_name="fields",
         related_query_name="field",
     )
-    type = CharField(_("type"), max_length=50, choices=FieldTypes.choices, default=FieldTypes.TEXT)
+    type = CharField(
+        _("type"), max_length=50, choices=FieldTypes.choices, default=FieldTypes.TEXT
+    )
     placeholder = CharField(_("placeholder"), max_length=200, default="", blank=True)
     dependent_field = ForeignKey(
         "FormField",
@@ -48,7 +52,9 @@ class FormField(TimeStampedModel, BaseModel):
         verbose_name=_("depends on"),
         related_name="dependents",
         related_query_name="dependent",
-        limit_choices_to={"type__in": [FieldTypes.SELECT, FieldTypes.CHECKBOX, FieldTypes.RADIO]},
+        limit_choices_to={
+            "type__in": [FieldTypes.SELECT, FieldTypes.CHECKBOX, FieldTypes.RADIO]
+        },
         null=True,
         blank=True,
     )
@@ -73,7 +79,9 @@ class Choice(TimeStampedModel, BaseModel):
         verbose_name=_("fields"),
         related_name="choices",
         related_query_name="choice",
-        limit_choices_to={"type__in": [FieldTypes.SELECT, FieldTypes.CHECKBOX, FieldTypes.RADIO]},
+        limit_choices_to={
+            "type__in": [FieldTypes.SELECT, FieldTypes.CHECKBOX, FieldTypes.RADIO]
+        },
     )
 
     class Meta:
@@ -90,13 +98,17 @@ class Validator(BaseModel):
         related_name="validators",
         related_query_name="validator",
     )
-    type = CharField(_("type"), max_length=10, choices=ValidatorTypes.choices, default=None)
+    type = CharField(
+        _("type"), max_length=10, choices=ValidatorTypes.choices, default=None
+    )
     constraint = CharField(_("constraint"), max_length=500)
     message = CharField(_("message"), max_length=500, default="", blank=True)
     description = CharField(_("description"), max_length=500, default="", blank=True)
     is_enabled = BooleanField(_("is enabled"), default=True)
     inverse_match = BooleanField(_("inverse match"))
-    flags = CharField(_("flags"), choices=RegexFlags.choices, default="", max_length=5, blank=True)
+    flags = CharField(
+        _("flags"), choices=RegexFlags.choices, default="", max_length=5, blank=True
+    )
 
     class Meta:
         db_table = "validators"
@@ -122,7 +134,9 @@ class Validator(BaseModel):
             return validate_attr(value, field)
         return None
 
-    def validate_regex(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
+    def validate_regex(
+        self, value: AnyStr, field: FormField
+    ) -> Optional[ValidationError]:
         flags: int = 0
         for flag in str(self.flags).split(","):
             flags |= int(flag)
@@ -138,7 +152,9 @@ class Validator(BaseModel):
             )
         return None
 
-    def validate_minlength(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
+    def validate_minlength(
+        self, value: AnyStr, field: FormField
+    ) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
         if len(value) < int(self.constraint):
@@ -152,7 +168,9 @@ class Validator(BaseModel):
             )
         return None
 
-    def validate_maxlength(self, value: AnyStr, field: FormField) -> Optional[ValidationError]:
+    def validate_maxlength(
+        self, value: AnyStr, field: FormField
+    ) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
         if len(value) > int(self.constraint):

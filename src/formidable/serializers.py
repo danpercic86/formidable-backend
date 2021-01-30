@@ -11,7 +11,6 @@ from formidable.constants import (
     DESCRIPTION,
     FIELD,
     FORM,
-    RESPONSE,
     STATUS_CHANGED,
     VALUE,
     ERRORS,

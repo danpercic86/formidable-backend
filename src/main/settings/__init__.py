@@ -9,14 +9,14 @@ class Config:
         if not os.path.exists(config_file):
             msg = (
                 'Could not find "config.yml" file. '
-                'Make sure to read the instructions from README.md'
+                "Make sure to read the instructions from README.md"
             )
             raise FileNotFoundError(msg)
 
         with open(config_file) as file:
             self.__config = yaml.safe_load(file)
             if not self.__config:
-                raise ValueError('Config file is empty!')
+                raise ValueError("Config file is empty!")
 
     def get(
         self,
@@ -31,5 +31,5 @@ class Config:
                 value = value.strip()
             return value
         if raise_error:
-            raise LookupError(f'Cannot find value for setting {var_name}!')
+            raise LookupError(f"Cannot find value for setting {var_name}!")
         return None

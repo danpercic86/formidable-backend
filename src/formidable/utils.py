@@ -11,11 +11,11 @@ def get_upload_path(instance, file_name: AnyStr) -> AnyStr:
     :return: new file name
     """
     if instance is None:
-        file_name, extension = file_name.rsplit('.', 1)
-        return f'{file_name}_{str(datetime.datetime.now())[:19]}.{extension}'
+        file_name, extension = file_name.rsplit(".", 1)
+        return f"{file_name}_{str(datetime.datetime.now())[:19]}.{extension}"
 
     # noinspection PyProtectedMember
     model = instance.__class__._meta
-    model_name = model.verbose_name_plural.replace(' ', '_')
-    file_name, extension = file_name.rsplit('.', 1)
-    return f'{model_name}/{file_name}_{str(datetime.datetime.now())[:19]}.{extension}'
+    model_name = model.verbose_name_plural.replace(" ", "_")
+    file_name, extension = file_name.rsplit(".", 1)
+    return f"{model_name}/{file_name}_{str(datetime.datetime.now())[:19]}.{extension}"

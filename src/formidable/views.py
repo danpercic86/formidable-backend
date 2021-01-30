@@ -26,4 +26,6 @@ class FormViewSet(ModelViewSet):
 )
 class ResponseViewSet(ModelViewSet):
     serializer_class = ResponseSerializer
-    queryset: QuerySet[Application] = Application.objects.prefetch_related("fields").all()
+    queryset: QuerySet[Application] = Application.objects.prefetch_related(
+        "fields"
+    ).all()

@@ -14,376 +14,435 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Form',
+            name="Form",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created',
+                    "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='created'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
-                    'modified',
+                    "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='modified'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
-                ('name', models.CharField(max_length=200, verbose_name='form name')),
+                ("name", models.CharField(max_length=200, verbose_name="form name")),
                 (
-                    'description',
+                    "description",
                     models.TextField(
-                        blank=True, default='', max_length=500, verbose_name='form description'
+                        blank=True,
+                        default="",
+                        max_length=500,
+                        verbose_name="form description",
                     ),
                 ),
-                ('button_text', models.CharField(max_length=50, verbose_name='submit button text')),
+                (
+                    "button_text",
+                    models.CharField(max_length=50, verbose_name="submit button text"),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='FormField',
+            name="FormField",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created',
+                    "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='created'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
-                    'modified',
+                    "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='modified'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
-                ('name', models.CharField(max_length=100, verbose_name='field name')),
+                ("name", models.CharField(max_length=100, verbose_name="field name")),
                 (
-                    'type',
+                    "type",
                     models.CharField(
                         choices=[
-                            ('text', 'text'),
-                            ('email', 'email'),
-                            ('url', 'url'),
-                            ('file', 'file'),
-                            ('integer', 'integer'),
-                            ('decimal', 'decimal'),
-                            ('tel', 'phone number'),
-                            ('date', 'date'),
-                            ('time', 'time'),
-                            ('datetime', 'datetime'),
-                            ('radio', 'radio'),
-                            ('checkbox', 'checkbox'),
-                            ('select', 'select'),
+                            ("text", "text"),
+                            ("email", "email"),
+                            ("url", "url"),
+                            ("file", "file"),
+                            ("integer", "integer"),
+                            ("decimal", "decimal"),
+                            ("tel", "phone number"),
+                            ("date", "date"),
+                            ("time", "time"),
+                            ("datetime", "datetime"),
+                            ("radio", "radio"),
+                            ("checkbox", "checkbox"),
+                            ("select", "select"),
                         ],
-                        default='text',
+                        default="text",
                         max_length=50,
-                        verbose_name='field type',
+                        verbose_name="field type",
                     ),
                 ),
                 (
-                    'placeholder',
+                    "placeholder",
                     models.CharField(
-                        blank=True, default='', max_length=200, verbose_name='placeholder'
+                        blank=True,
+                        default="",
+                        max_length=200,
+                        verbose_name="placeholder",
                     ),
                 ),
                 (
-                    'dependent_value',
+                    "dependent_value",
                     models.CharField(
-                        blank=True, default='', max_length=200, verbose_name='with value'
+                        blank=True,
+                        default="",
+                        max_length=200,
+                        verbose_name="with value",
                     ),
                 ),
                 (
-                    'dependent_field',
+                    "dependent_field",
                     models.ForeignKey(
                         blank=True,
-                        limit_choices_to={'type__in': ['select', 'checkbox', 'radio']},
+                        limit_choices_to={"type__in": ["select", "checkbox", "radio"]},
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='dependents',
-                        related_query_name='dependent',
-                        to='formidable.formfield',
-                        verbose_name='depends on',
+                        related_name="dependents",
+                        related_query_name="dependent",
+                        to="formidable.formfield",
+                        verbose_name="depends on",
                     ),
                 ),
                 (
-                    'form',
+                    "form",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='fields',
-                        related_query_name='field',
-                        to='formidable.form',
-                        verbose_name='form this filed belongs to',
+                        related_name="fields",
+                        related_query_name="field",
+                        to="formidable.form",
+                        verbose_name="form this filed belongs to",
                     ),
                 ),
             ],
             options={
-                'db_table': 'fields',
+                "db_table": "fields",
             },
         ),
         migrations.CreateModel(
-            name='Response',
+            name="Response",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created',
+                    "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='created'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
-                    'modified',
+                    "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='modified'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
                 (
-                    'status',
+                    "status",
                     model_utils.fields.StatusField(
-                        choices=[('new', 'new'), ('err', 'has errors'), ('ok', 'ok')],
-                        default='new',
+                        choices=[("new", "new"), ("err", "has errors"), ("ok", "ok")],
+                        default="new",
                         max_length=100,
                         no_check_for_status=True,
-                        verbose_name='status',
+                        verbose_name="status",
                     ),
                 ),
                 (
-                    'status_changed',
+                    "status_changed",
                     model_utils.fields.MonitorField(
                         default=django.utils.timezone.now,
-                        monitor='status',
-                        verbose_name='status changed',
+                        monitor="status",
+                        verbose_name="status changed",
                     ),
                 ),
                 (
-                    'form',
+                    "form",
                     models.ForeignKey(
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='formidable.form',
-                        verbose_name='form this response belongs to',
+                        to="formidable.form",
+                        verbose_name="form this response belongs to",
                     ),
                 ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Validator',
+            name="Validator",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'type',
+                    "type",
                     models.CharField(
                         choices=[
-                            ('minlength', 'min length'),
-                            ('maxlength', 'max length'),
-                            ('regex', 'regex'),
+                            ("minlength", "min length"),
+                            ("maxlength", "max length"),
+                            ("regex", "regex"),
                         ],
                         default=None,
                         max_length=10,
                     ),
                 ),
-                ('constraint', models.CharField(max_length=500)),
-                ('message', models.CharField(blank=True, default='', max_length=500)),
-                ('description', models.CharField(blank=True, default='', max_length=500)),
-                ('is_enabled', models.BooleanField(default=True)),
-                ('inverse_match', models.BooleanField()),
+                ("constraint", models.CharField(max_length=500)),
+                ("message", models.CharField(blank=True, default="", max_length=500)),
                 (
-                    'flags',
+                    "description",
+                    models.CharField(blank=True, default="", max_length=500),
+                ),
+                ("is_enabled", models.BooleanField(default=True)),
+                ("inverse_match", models.BooleanField()),
+                (
+                    "flags",
                     models.CharField(
                         blank=True,
                         choices=[
-                            (2, 'case-insensitive'),
-                            (8, 'multiline'),
-                            (16, 'dotall'),
-                            (32, 'unicode'),
+                            (2, "case-insensitive"),
+                            (8, "multiline"),
+                            (16, "dotall"),
+                            (32, "unicode"),
                         ],
-                        default='',
+                        default="",
                         max_length=5,
                     ),
                 ),
                 (
-                    'field',
+                    "field",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='validators',
-                        related_query_name='validator',
-                        to='formidable.formfield',
-                        verbose_name='field to validate',
+                        related_name="validators",
+                        related_query_name="validator",
+                        to="formidable.formfield",
+                        verbose_name="field to validate",
                     ),
                 ),
             ],
             options={
-                'db_table': 'validators',
+                "db_table": "validators",
             },
         ),
         migrations.CreateModel(
-            name='ResponseField',
+            name="ResponseField",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created',
+                    "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='created'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
-                    'modified',
+                    "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='modified'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
                 (
-                    'status',
+                    "status",
                     model_utils.fields.StatusField(
-                        choices=[('new', 'new'), ('err', 'has errors'), ('ok', 'ok')],
-                        default='new',
+                        choices=[("new", "new"), ("err", "has errors"), ("ok", "ok")],
+                        default="new",
                         max_length=100,
                         no_check_for_status=True,
-                        verbose_name='status',
+                        verbose_name="status",
                     ),
                 ),
                 (
-                    'status_changed',
+                    "status_changed",
                     model_utils.fields.MonitorField(
                         default=django.utils.timezone.now,
-                        monitor='status',
-                        verbose_name='status changed',
+                        monitor="status",
+                        verbose_name="status changed",
                     ),
                 ),
-                ('value', models.CharField(max_length=500, verbose_name='value')),
+                ("value", models.CharField(max_length=500, verbose_name="value")),
                 (
-                    'errors',
-                    models.CharField(blank=True, default='', max_length=500, verbose_name='errors'),
-                ),
-                (
-                    'observations',
+                    "errors",
                     models.CharField(
-                        blank=True, default='', max_length=500, verbose_name='observations'
+                        blank=True, default="", max_length=500, verbose_name="errors"
                     ),
                 ),
                 (
-                    'field',
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to='formidable.formfield',
-                        verbose_name='field this response belongs to',
+                    "observations",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        max_length=500,
+                        verbose_name="observations",
                     ),
                 ),
                 (
-                    'response',
+                    "field",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='fields',
-                        related_query_name='field',
-                        to='formidable.response',
-                        verbose_name='application this response belongs to',
+                        to="formidable.formfield",
+                        verbose_name="field this response belongs to",
+                    ),
+                ),
+                (
+                    "response",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="fields",
+                        related_query_name="field",
+                        to="formidable.response",
+                        verbose_name="application this response belongs to",
                     ),
                 ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Choice',
+            name="Choice",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created',
+                    "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='created'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
-                    'modified',
+                    "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name='modified'
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
-                ('name', models.CharField(max_length=300, verbose_name='choice name')),
+                ("name", models.CharField(max_length=300, verbose_name="choice name")),
                 (
-                    'fields',
+                    "fields",
                     models.ManyToManyField(
-                        limit_choices_to={'type__in': ['select', 'checkbox', 'radio']},
-                        related_name='choices',
-                        related_query_name='choice',
-                        to='formidable.FormField',
+                        limit_choices_to={"type__in": ["select", "checkbox", "radio"]},
+                        related_name="choices",
+                        related_query_name="choice",
+                        to="formidable.FormField",
                         verbose_name='"select" form fields',
                     ),
                 ),
             ],
             options={
-                'db_table': 'choices',
+                "db_table": "choices",
             },
         ),
         migrations.AddConstraint(
-            model_name='validator',
+            model_name="validator",
             constraint=models.CheckConstraint(
-                check=models.Q(type__in=['minlength', 'maxlength', 'regex']),
-                name='validator_type_valid',
+                check=models.Q(type__in=["minlength", "maxlength", "regex"]),
+                name="validator_type_valid",
             ),
         ),
         migrations.AddConstraint(
-            model_name='validator',
+            model_name="validator",
             constraint=models.CheckConstraint(
-                check=models.Q(flags__in=['', 2, 8, 16, 32]), name='validator_flag_valid'
+                check=models.Q(flags__in=["", 2, 8, 16, 32]),
+                name="validator_flag_valid",
             ),
         ),
         migrations.AddConstraint(
-            model_name='formfield',
+            model_name="formfield",
             constraint=models.CheckConstraint(
                 check=models.Q(
                     type__in=[
-                        'text',
-                        'email',
-                        'url',
-                        'file',
-                        'integer',
-                        'decimal',
-                        'tel',
-                        'date',
-                        'time',
-                        'datetime',
-                        'radio',
-                        'checkbox',
-                        'select',
+                        "text",
+                        "email",
+                        "url",
+                        "file",
+                        "integer",
+                        "decimal",
+                        "tel",
+                        "date",
+                        "time",
+                        "datetime",
+                        "radio",
+                        "checkbox",
+                        "select",
                     ]
                 ),
-                name='form_field_type_valid',
+                name="form_field_type_valid",
             ),
         ),
     ]
