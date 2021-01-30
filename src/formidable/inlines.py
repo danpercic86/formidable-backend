@@ -1,4 +1,4 @@
-from django.contrib.admin import StackedInline
+from django.contrib.admin import StackedInline, TabularInline
 
 from formidable.constants import (
     FIELD,
@@ -13,7 +13,12 @@ from formidable.constants import (
     CHOICES,
 )
 from formidable.forms import FormFieldAdminForm
-from formidable.models import FormField, Validator, Response
+from formidable.models import FormField, Validator, Response, FormSection
+
+
+class FormSectionInline(TabularInline):
+    model = FormSection
+    extra = 0
 
 
 class FormFieldInline(StackedInline):

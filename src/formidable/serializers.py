@@ -10,14 +10,23 @@ from formidable.constants import (
     IS_ENABLED,
     DESCRIPTION,
     FIELD,
-    FORM,
+    FORM_SECTION,
     STATUS_CHANGED,
     VALUE,
     ERRORS,
     OBSERVATIONS,
     STATUS,
+    NAME,
 )
-from formidable.models import Response, Application, FormField, Choice, Validator, Form
+from formidable.models import (
+    Response,
+    Application,
+    FormField,
+    Choice,
+    Validator,
+    FormSection,
+    Form,
+)
 
 
 class ChoiceSerializer(ModelSerializer):
@@ -38,11 +47,25 @@ class FormFieldSerializer(ModelSerializer):
 
     class Meta:
         model = FormField
-        exclude = CREATED, MODIFIED, FORM
+        exclude = CREATED, MODIFIED, FORM_SECTION
+
+
+class FormSectionSerializer(ModelSerializer):
+    fields = FormFieldSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = FormSection
+        exclude = CREATED, MODIFIED
+
+
+class FormSectionMinimalSerializer(ModelSerializer):
+    class Meta:
+        model = FormSection
+        fields = ("id", NAME)
 
 
 class FormSerializer(ModelSerializer):
-    fields = FormFieldSerializer(many=True, read_only=True)
+    sections = FormSectionMinimalSerializer(many=True, read_only=True)
 
     class Meta:
         model = Form

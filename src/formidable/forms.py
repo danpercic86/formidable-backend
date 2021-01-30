@@ -31,7 +31,7 @@ class FormFieldAdminForm(ModelForm):
             form_field.save()
 
         if form_field.pk:
-            form_field.choices = self.cleaned_data[CHOICES]
+            form_field.choices.set(self.cleaned_data[CHOICES])
             self.save_m2m()
 
         return form_field
