@@ -1,10 +1,3 @@
-import os
-
-import django
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "main.settings.dev")
-django.setup()
-
 from django.db.utils import IntegrityError
 from administration.models import User
 
