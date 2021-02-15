@@ -355,3 +355,5 @@ dmypy.json
 
 config.yml
 database/postgres-data/
+
+poetry.toml
