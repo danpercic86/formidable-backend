@@ -24,9 +24,10 @@ class FieldTypes(TextChoices):
 
 
 class ValidatorTypes(TextChoices):
-    MIN_LENGTH = "minlength", _("min length")
-    MAX_LENGTH = "maxlength", _("max length")
-    REGEX = "regex", _("regex")
+    MIN_LENGTH = "minlength", _("Minimum length")
+    MAX_LENGTH = "maxlength", _("Maximum length")
+    EMAIL = "email", _("Email")
+    REGEX = "pattern", _("Regular expression")
 
 
 class RegexFlags(IntegerChoices):
