@@ -1,6 +1,7 @@
 BASE_DIR := src
 ENV_PATH := $(shell poetry env info --path)
 ACTIVATE_PATH := /bin/activate
+SHELL := /bin/bash
 
 run:
 	python $(BASE_DIR)/manage.py runserver
@@ -23,18 +24,19 @@ build:
 	docker-compose up --build
 
 setup: config.yml
+	sudo apt install curl
 	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-	export PATH="$HOME/.poetry/bin:$PATH"
-
-	echo "Create shell..."
-	poetry env use 3.9
-	poetry env info --path
-
-	echo "Activating virtual environment..."
-	$(shell source $(ENV_PATH)$(ACTIVATE_PATH))
-
-	echo "Installing requirements..."
-	poetry install
+	( \
+	source $$HOME/.poetry/env; \
+	echo "Create shell..."; \
+	poetry config virtualenvs.in-project true --local; \
+	poetry shell; \
+	poetry env info --path; \
+	echo "Activating virtual environment..."; \
+	source $(ENV_PATH)$(ACTIVATE_PATH); \
+	echo "Installing requirements..."; \
+	poetry install; \
+	)
 
 	echo "Checking config.yml exists and has basic setup..."
 	python $(BASE_DIR)/manage.py shell -c "import check_config_vars"
