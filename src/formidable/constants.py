@@ -24,6 +24,8 @@ class FieldTypes(TextChoices):
 
 
 class ValidatorTypes(TextChoices):
+    MIN = "min", _("Minimum value (applies to number inputs only)")
+    MAX = "max", _("Maximum value (applies to number inputs only)")
     MIN_LENGTH = "minlength", _("Minimum length")
     MAX_LENGTH = "maxlength", _("Maximum length")
     EMAIL = "email", _("Email")
