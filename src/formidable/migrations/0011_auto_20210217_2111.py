@@ -6,21 +6,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('formidable', '0010_auto_20210215_1912'),
+        ("formidable", "0010_auto_20210215_1912"),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='validator',
-            name='validator_type_valid',
+            model_name="validator",
+            name="validator_type_valid",
         ),
         migrations.AlterField(
-            model_name='validator',
-            name='type',
-            field=models.CharField(choices=[('min', 'Minimum value (applies to number inputs only)'), ('max', 'Maximum value (applies to number inputs only)'), ('minlength', 'Minimum length'), ('maxlength', 'Maximum length'), ('email', 'Email'), ('pattern', 'Regular expression')], default=None, max_length=10, verbose_name='type'),
+            model_name="validator",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("min", "Minimum value (applies to number inputs only)"),
+                    ("max", "Maximum value (applies to number inputs only)"),
+                    ("minlength", "Minimum length"),
+                    ("maxlength", "Maximum length"),
+                    ("email", "Email"),
+                    ("pattern", "Regular expression"),
+                ],
+                default=None,
+                max_length=10,
+                verbose_name="type",
+            ),
         ),
         migrations.AddConstraint(
-            model_name='validator',
-            constraint=models.CheckConstraint(check=models.Q(type__in=['min', 'max', 'minlength', 'maxlength', 'email', 'pattern']), name='validator_type_valid'),
+            model_name="validator",
+            constraint=models.CheckConstraint(
+                check=models.Q(
+                    type__in=[
+                        "min",
+                        "max",
+                        "minlength",
+                        "maxlength",
+                        "email",
+                        "pattern",
+                    ]
+                ),
+                name="validator_type_valid",
+            ),
         ),
     ]
