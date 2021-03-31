@@ -161,7 +161,7 @@ with_social = ["django-allauth (>=0.40.0,<0.45.0)"]
 
 [[package]]
 name = "django"
-version = "3.2b1"
+version = "3.2rc1"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -655,7 +655,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "37601e248d0bc3109bd9b88b1b4178371c3175c5a7ad6f025f340ad30a3abb47"
+content-hash = "baec3b6412c74609fef0c5616398a1fe5fec0eae885f7b6d37ce6394e8fc506d"
 
 [metadata.files]
 appdirs = [
@@ -757,8 +757,8 @@ dj-rest-auth = [
     {file = "dj-rest-auth-2.1.3.tar.gz", hash = "sha256:a5ae4e1180e29539839677b51fd6faf84ea410270c082d2479abf5490422ca21"},
 ]
 django = [
-    {file = "Django-3.2b1-py3-none-any.whl", hash = "sha256:b6349c182a1985b7488365ec6bb0042446153601b2d7af02e4e768f618ba25b6"},
-    {file = "Django-3.2b1.tar.gz", hash = "sha256:b3f1afcab9bd5a6250be9caff4cdc505f4f4313cb6c0b301e92739cb80820b3f"},
+    {file = "Django-3.2rc1-py3-none-any.whl", hash = "sha256:8a3e3758f7e531e78d473f526ae5d20a3e58551fe4441cd6610b448b3b6f7044"},
+    {file = "Django-3.2rc1.tar.gz", hash = "sha256:28c24ae710d71ed65641b83ba3f06cffdb3d620475890cd2bb72ace92cb97a21"},
 ]
 django-admin-thumbnails = [
     {file = "django-admin-thumbnails-0.2.5.tar.gz", hash = "sha256:eadea467f9ea0d101edf7871cff6c0f667566ae94036636ef979ed66e7ab2fe3"},
