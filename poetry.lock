@@ -231,7 +231,7 @@ sqlparse = ">=0.2.0"
 
 [[package]]
 name = "django-extra-checks"
-version = "0.10.0"
+version = "0.11.0"
 description = "Collection of useful checks for Django Checks Framework"
 category = "dev"
 optional = false
@@ -655,7 +655,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ba6cfa24ce2adb2e08b6e2125c57034a6f697bca87ee06e615369ca00b8d9fba"
+content-hash = "38ef487325f74744399aa2eed3bdf376f1b9ae8d160f9c03f1595b23cd72f3e4"
 
 [metadata.files]
 appdirs = [
@@ -775,8 +775,8 @@ django-debug-toolbar = [
     {file = "django_debug_toolbar-3.2.1-py3-none-any.whl", hash = "sha256:e759e63e3fe2d3110e0e519639c166816368701eab4a47fed75d7de7018467b9"},
 ]
 django-extra-checks = [
-    {file = "django-extra-checks-0.10.0.tar.gz", hash = "sha256:4bdee67c8bd89ca6048af6e4ae9879b285f4859c73a065a3ca8e2e20ef68b403"},
-    {file = "django_extra_checks-0.10.0-py3-none-any.whl", hash = "sha256:3648ae929a4685d9a0ca056c0c290815f75b52e360e752cb0d11931ebba75023"},
+    {file = "django-extra-checks-0.11.0.tar.gz", hash = "sha256:61681433f2df8b8932676c216472b7f5554bda0018058d0a0bac89bf377347bd"},
+    {file = "django_extra_checks-0.11.0-py3-none-any.whl", hash = "sha256:b1a19c03243d67c380c8af60c1ef837323c21e2fd888e0fd532d1df5f1866ba0"},
 ]
 django-jazzmin = [
     {file = "django-jazzmin-2.4.6.tar.gz", hash = "sha256:f3fcf9b3a92ad4c11fae3d035a094b3cf7d53f2139d1c40ded834752c7e229b9"},
