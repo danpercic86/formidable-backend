@@ -15,9 +15,9 @@ django-cors-headers = "^3.7.0"
 Pillow = "^8.2.0"
 django-admin-thumbnails = "^0.2.5"
 PyYAML = "^5.4.1"
-docutils = "^0.16"
+docutils = "^0.17.1"
 django-model-utils = "^4.1.1"
-drf-spectacular = "^0.14.0"
+drf-spectacular = "^0.15.1"
 django-jazzmin = "^2.4.6"
 django-tabular-permissions = "^2.8"
 dj-rest-auth = {extras = ["with_social"], version = "^2.1.4"}
@@ -30,7 +30,7 @@ pycodestyle = "^2.7.0"
 django-querycount = "^0.7.0"
 django-debug-toolbar = "^3.2.1"
 nplusone = "^1.0.0"
-django-extra-checks = "^0.10.0"
+django-extra-checks = "^0.11.0"
 
 [tool.black]
 target-version = ['py38']
