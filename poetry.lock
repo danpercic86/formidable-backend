@@ -311,7 +311,7 @@ test = ["cryptography", "pytest-cov", "pytest-django", "pytest-xdist", "pytest",
 
 [[package]]
 name = "docutils"
-version = "0.16"
+version = "0.17.1"
 description = "Docutils -- Python Documentation Utilities"
 category = "main"
 optional = false
@@ -655,7 +655,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ba6cfa24ce2adb2e08b6e2125c57034a6f697bca87ee06e615369ca00b8d9fba"
+content-hash = "aac7d764c6f7760b24887ecfa3d9b718b09900b22b08088b57b746e280020207"
 
 [metadata.files]
 appdirs = [
@@ -801,8 +801,8 @@ djangorestframework-simplejwt = [
     {file = "djangorestframework_simplejwt-4.6.0.tar.gz", hash = "sha256:7adc913ba0d2ed7f46e0b9bf6e86f9bd9248f1c4201722b732b8213e0ea66f9f"},
 ]
 docutils = [
-    {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},
-    {file = "docutils-0.16.tar.gz", hash = "sha256:c2de3a60e9e7d07be26b7f2b00ca0309c207e06c100f9cc2a94931fc75a478fc"},
+    {file = "docutils-0.17.1-py2.py3-none-any.whl", hash = "sha256:cf316c8370a737a022b72b56874f6602acf974a37a9fba42ec2876387549fc61"},
+    {file = "docutils-0.17.1.tar.gz", hash = "sha256:686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"},
 ]
 drf-spectacular = [
     {file = "drf-spectacular-0.14.0.tar.gz", hash = "sha256:df3d5a124b7e2f797af23af2c7975815f86dba25d4251432997cc2f7ba87ce41"},
