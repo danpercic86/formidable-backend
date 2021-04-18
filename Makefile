@@ -1,23 +1,24 @@
 BASE_DIR := src
 ACTIVATE_PATH := .venv/bin/activate
 SHELL := /bin/bash
+RUN := poetry run
 
 run:
-	python $(BASE_DIR)/manage.py runserver
+	$(RUN) $(BASE_DIR)/manage.py runserver
 
 migrations:
-	python $(BASE_DIR)/manage.py makemigrations
+	$(RUN) $(BASE_DIR)/manage.py makemigrations
 
 migrate:
-	python $(BASE_DIR)/manage.py migrate
+	$(RUN) $(BASE_DIR)/manage.py migrate
 
 lint:
-	black $(BASE_DIR)
-	pylint $(BASE_DIR)
-	pycodestyle --exclude=migrations --max-line-length=88 $(BASE_DIR)
+	$(RUN) black $(BASE_DIR)
+	$(RUN) pylint $(BASE_DIR)
+	$(RUN) pycodestyle --exclude=migrations --max-line-length=88 $(BASE_DIR)
 
 superuser:
-	python $(BASE_DIR)/manage.py shell -c "import createsuperuser"
+	$(RUN) $(BASE_DIR)/manage.py shell -c "import createsuperuser"
 
 build:
 	docker-compose up --build
