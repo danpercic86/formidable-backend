@@ -25,7 +25,7 @@ djangorestframework-simplejwt = "^4.6.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.7.4"
-black = "^20.8b1"
+black = "^21.4b0"
 pycodestyle = "^2.7.0"
 django-querycount = "^0.7.0"
 django-debug-toolbar = "^3.2.1"
