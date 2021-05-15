@@ -1,72 +1,18 @@
 from rest_framework.serializers import ModelSerializer
 
 from formidable.constants import (
-    CREATED,
-    MODIFIED,
-    FIELDS,
-    IS_ENABLED,
-    DESCRIPTION,
-    FIELD,
-    FORM_SECTION,
-    NAME,
-    FORM,
     ID,
-    RESPONSES,
+    FIELD,
     VALUE,
     ERRORS,
+    CREATED,
+    MODIFIED,
+    STATUS_CHANGED,
+    OBSERVATIONS,
+    STATUS,
+    APPLICATION,
 )
-from formidable.models import (
-    Field,
-    Choice,
-    Validator,
-    Section,
-    Form,
-    Application,
-    Response,
-)
-
-
-class ChoiceSerializer(ModelSerializer):
-    class Meta:
-        model = Choice
-        exclude = CREATED, MODIFIED, FIELDS
-
-
-class ValidatorSerializer(ModelSerializer):
-    class Meta:
-        model = Validator
-        exclude = FIELD, DESCRIPTION, IS_ENABLED
-
-
-class FormFieldSerializer(ModelSerializer):
-    choices = ChoiceSerializer(many=True, read_only=True)
-    validators = ValidatorSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Field
-        exclude = CREATED, MODIFIED, FORM_SECTION
-
-
-class FormSectionSerializer(ModelSerializer):
-    fields = FormFieldSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Section
-        exclude = CREATED, MODIFIED
-
-
-class FormSectionMinimalSerializer(ModelSerializer):
-    class Meta:
-        model = Section
-        fields = ("id", NAME)
-
-
-class FormSerializer(ModelSerializer):
-    sections = FormSectionMinimalSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Form
-        exclude = CREATED, MODIFIED
+from formidable.models import Response
 
 
 class ResponseDetailSerializer(ModelSerializer):
@@ -78,10 +24,18 @@ class ResponseDetailSerializer(ModelSerializer):
         read_only_fields = fields
 
 
-class ApplicationDetailSerializer(ModelSerializer):
-    responses = ResponseDetailSerializer(many=True, read_only=True)
-
+class ResponseCreateSerializer(ModelSerializer):
     class Meta:
-        model = Application
-        fields = ID, FORM, RESPONSES
-        read_only_fields = fields
+        model = Response
+        exclude = CREATED, MODIFIED, STATUS_CHANGED, ERRORS, OBSERVATIONS, STATUS
+
+
+class ApplicationResponseCreateSerializer(ResponseCreateSerializer):
+    class Meta(ResponseCreateSerializer.Meta):
+        exclude = ResponseCreateSerializer.Meta.exclude + (APPLICATION,)
+
+
+class ResponseSerializer(ModelSerializer):
+    class Meta:
+        model = Response
+        exclude = CREATED, MODIFIED, STATUS_CHANGED

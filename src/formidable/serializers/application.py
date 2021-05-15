@@ -4,37 +4,33 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 
 from formidable.constants import (
+    RESPONSES,
+    FORM,
+    ID,
     CREATED,
     MODIFIED,
-    STATUS_CHANGED,
-    ERRORS,
-    OBSERVATIONS,
     STATUS,
-    APPLICATION,
+    STATUS_CHANGED,
     APPLICANT,
     FIELDS,
     FIELD,
     VALUE,
 )
-from formidable.models import Response, Application, Field
+from formidable.models import Application, Field, Response
+from formidable.serializers.response import (
+    ResponseDetailSerializer,
+    ApplicationResponseCreateSerializer,
+    ResponseSerializer,
+)
 
 
-class ResponseCreateSerializer(ModelSerializer):
+class ApplicationDetailSerializer(ModelSerializer):
+    responses = ResponseDetailSerializer(many=True, read_only=True)
+
     class Meta:
-        model = Response
-        exclude = (
-            CREATED,
-            MODIFIED,
-            STATUS_CHANGED,
-            ERRORS,
-            OBSERVATIONS,
-            STATUS,
-        )
-
-
-class ApplicationResponseCreateSerializer(ResponseCreateSerializer):
-    class Meta(ResponseCreateSerializer.Meta):
-        exclude = ResponseCreateSerializer.Meta.exclude + (APPLICATION,)
+        model = Application
+        fields = ID, FORM, RESPONSES
+        read_only_fields = fields
 
 
 class ApplicationCreateSerializer(ModelSerializer):
@@ -43,12 +39,6 @@ class ApplicationCreateSerializer(ModelSerializer):
     class Meta:
         model = Application
         exclude = CREATED, MODIFIED, STATUS, STATUS_CHANGED, APPLICANT
-
-
-class ResponseSerializer(ModelSerializer):
-    class Meta:
-        model = Response
-        exclude = CREATED, MODIFIED, STATUS_CHANGED
 
 
 class ApplicationSerializer(ModelSerializer):

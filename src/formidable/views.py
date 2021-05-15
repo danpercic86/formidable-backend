@@ -7,15 +7,15 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet, ReadOnlyModelV
 from rest_framework_extensions.mixins import NestedViewSetMixin, DetailSerializerMixin
 
 from formidable.models import Section, Application, Form, Response
-from formidable.serializers.request import (
+from formidable.serializers import (
+    SectionSerializer,
+    FormSerializer,
+    ApplicationDetailSerializer,
+)
+from formidable.serializers import (
     ApplicationCreateSerializer,
     ApplicationSerializer,
     ResponseSerializer,
-)
-from formidable.serializers.response import (
-    FormSectionSerializer,
-    FormSerializer,
-    ApplicationDetailSerializer,
 )
 
 
@@ -26,7 +26,7 @@ class FormViewSet(ReadOnlyModelViewSet):
 
 
 class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
-    serializer_class = FormSectionSerializer
+    serializer_class = SectionSerializer
     permission_classes = (AllowAny,)
     queryset: QuerySet[Section] = (
         Section.objects.prefetch_related("fields")
