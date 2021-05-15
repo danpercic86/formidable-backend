@@ -9,14 +9,21 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('formidable', '0012_alter_response_application'),
+        ("formidable", "0012_alter_response_application"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='application',
-            name='applicant',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='applications', related_query_name='application', to='administration.user', verbose_name='applicant'),
+            model_name="application",
+            name="applicant",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="applications",
+                related_query_name="application",
+                to="administration.user",
+                verbose_name="applicant",
+            ),
             preserve_default=False,
         ),
     ]

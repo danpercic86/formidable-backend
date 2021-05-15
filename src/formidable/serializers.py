@@ -16,7 +16,9 @@ from formidable.constants import (
     ERRORS,
     OBSERVATIONS,
     STATUS,
-    NAME, APPLICANT, APPLICATION,
+    NAME,
+    APPLICANT,
+    APPLICATION,
 )
 from formidable.models import (
     Response,

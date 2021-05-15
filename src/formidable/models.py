@@ -155,7 +155,7 @@ class Validator(BaseModel):
         return None
 
     def validate_regex(
-            self, value: AnyStr, field: FormField
+        self, value: AnyStr, field: FormField
     ) -> Optional[ValidationError]:
         flags: int = 0
         for flag in str(self.flags).split(","):
@@ -173,7 +173,7 @@ class Validator(BaseModel):
         return None
 
     def validate_minlength(
-            self, value: AnyStr, field: FormField
+        self, value: AnyStr, field: FormField
     ) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
@@ -189,7 +189,7 @@ class Validator(BaseModel):
         return None
 
     def validate_maxlength(
-            self, value: AnyStr, field: FormField
+        self, value: AnyStr, field: FormField
     ) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
@@ -207,9 +207,13 @@ class Validator(BaseModel):
 
 class Application(TimeStampedModel, StatusModel, BaseModel):
     STATUS = Choices(("new", _("new")), ("err", _("has errors")), ("ok", _("ok")))
-    applicant = ForeignKey(User, verbose_name=_("applicant"), on_delete=CASCADE,
-                           related_name="applications",
-                           related_query_name="application")
+    applicant = ForeignKey(
+        User,
+        verbose_name=_("applicant"),
+        on_delete=CASCADE,
+        related_name="applications",
+        related_query_name="application",
+    )
     form = ForeignKey(
         FormSection,
         verbose_name=_("form this response belongs to"),

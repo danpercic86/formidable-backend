@@ -11,7 +11,8 @@ from formidable.serializers import (
     FormSectionSerializer,
     ApplicationSerializer,
     ApplicationCreateSerializer,
-    FormSerializer, ResponseSerializer,
+    FormSerializer,
+    ResponseSerializer,
 )
 
 
@@ -26,9 +27,9 @@ class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
     permission_classes = (AllowAny,)
     queryset: QuerySet[FormSection] = (
         FormSection.objects.prefetch_related("fields")
-            .prefetch_related("fields__choices")
-            .prefetch_related("fields__validators")
-            .all()
+        .prefetch_related("fields__choices")
+        .prefetch_related("fields__validators")
+        .all()
     )
 
 
