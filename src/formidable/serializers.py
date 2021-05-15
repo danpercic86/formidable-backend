@@ -16,7 +16,7 @@ from formidable.constants import (
     ERRORS,
     OBSERVATIONS,
     STATUS,
-    NAME,
+    NAME, APPLICANT, APPLICATION,
 )
 from formidable.models import (
     Response,
@@ -72,14 +72,14 @@ class FormSerializer(ModelSerializer):
         exclude = CREATED, MODIFIED
 
 
-class ResponseFieldSerializer(ModelSerializer):
+class ResponseSerializer(ModelSerializer):
     class Meta:
         model = Response
         exclude = CREATED, MODIFIED, STATUS_CHANGED
 
 
-class ResponseSerializer(ModelSerializer):
-    fields = ResponseFieldSerializer(many=True)
+class ApplicationSerializer(ModelSerializer):
+    responses = ResponseSerializer(many=True)
 
     class Meta:
         model = Application
@@ -104,7 +104,7 @@ class ResponseSerializer(ModelSerializer):
         return response
 
 
-class ResponseFieldCreateSerializer(ModelSerializer):
+class ResponseCreateSerializer(ModelSerializer):
     class Meta:
         model = Response
         exclude = (
@@ -117,9 +117,14 @@ class ResponseFieldCreateSerializer(ModelSerializer):
         )
 
 
-class ResponseCreateSerializer(ModelSerializer):
-    fields = ResponseFieldCreateSerializer(many=True)
+class ApplicationResponseCreateSerializer(ResponseCreateSerializer):
+    class Meta(ResponseCreateSerializer.Meta):
+        exclude = ResponseCreateSerializer.Meta.exclude + (APPLICATION,)
+
+
+class ApplicationCreateSerializer(ModelSerializer):
+    responses = ApplicationResponseCreateSerializer(many=True)
 
     class Meta:
         model = Application
-        exclude = CREATED, MODIFIED, STATUS, STATUS_CHANGED
+        exclude = CREATED, MODIFIED, STATUS, STATUS_CHANGED, APPLICANT

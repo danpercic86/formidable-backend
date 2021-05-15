@@ -65,6 +65,7 @@ ERRORS = "errors"
 OBSERVATIONS = "observations"
 APPLICATION = "application"
 CHOICES = "choices"
+APPLICANT = "applicant"
 
 CREATED_MODIFIED = (
     "Created / Modified",

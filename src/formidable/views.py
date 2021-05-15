@@ -4,13 +4,14 @@ from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, GenericViewSet, ReadOnlyModelViewSet
+from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from formidable.models import FormSection, Application, Form
+from formidable.models import FormSection, Application, Form, Response
 from formidable.serializers import (
     FormSectionSerializer,
-    ResponseSerializer,
-    ResponseCreateSerializer,
-    FormSerializer,
+    ApplicationSerializer,
+    ApplicationCreateSerializer,
+    FormSerializer, ResponseSerializer,
 )
 
 
@@ -25,21 +26,27 @@ class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
     permission_classes = (AllowAny,)
     queryset: QuerySet[FormSection] = (
         FormSection.objects.prefetch_related("fields")
-        .prefetch_related("fields__choices")
-        .prefetch_related("fields__validators")
-        .all()
+            .prefetch_related("fields__choices")
+            .prefetch_related("fields__validators")
+            .all()
     )
 
 
 @extend_schema_view(
     create=extend_schema(
         description="Create new response",
-        request=ResponseCreateSerializer,
-        responses={status.HTTP_201_CREATED: ResponseSerializer},
+        request=ApplicationCreateSerializer,
+        responses={status.HTTP_201_CREATED: ApplicationSerializer},
     )
 )
-class ResponseViewSet(ModelViewSet):
-    serializer_class = ResponseSerializer
+class ApplicationViewSet(NestedViewSetMixin, ModelViewSet):
+    serializer_class = ApplicationSerializer
     queryset: QuerySet[Application] = Application.objects.prefetch_related(
-        "fields"
+        "responses__field"
     ).all()
+
+
+class ResponseViewSet(NestedViewSetMixin, ModelViewSet, GenericViewSet):
+    serializer_class = ResponseSerializer
+    permission_classes = (AllowAny,)
+    queryset: QuerySet[Response] = Response.objects.all()

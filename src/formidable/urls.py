@@ -1,10 +1,13 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework_extensions.routers import ExtendedSimpleRouter
 
-from formidable.views import FormViewSet, ResponseViewSet, FormSectionViewSet
+from formidable.views import FormViewSet, ApplicationViewSet, FormSectionViewSet, \
+    ResponseViewSet
 
-router = DefaultRouter()
+router = ExtendedSimpleRouter()
 router.register("forms", FormViewSet)
 router.register("sections", FormSectionViewSet)
-router.register("responses", ResponseViewSet)
+router.register("applications", ApplicationViewSet) \
+    .register("responses", ResponseViewSet, basename="responses",
+              parents_query_lookups=["application_id"])
 
 common_urls = router.urls
