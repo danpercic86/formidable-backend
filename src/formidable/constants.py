@@ -66,6 +66,9 @@ OBSERVATIONS = "observations"
 APPLICATION = "application"
 CHOICES = "choices"
 APPLICANT = "applicant"
+FORM = "form"
+ID = "id"
+RESPONSES = "responses"
 
 CREATED_MODIFIED = (
     "Created / Modified",

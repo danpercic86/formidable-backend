@@ -7,13 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('formidable', '0011_auto_20210217_2111'),
+        ("formidable", "0011_auto_20210217_2111"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='response',
-            name='application',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='responses', related_query_name='response', to='formidable.application', verbose_name='application this response belongs to'),
+            model_name="response",
+            name="application",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="responses",
+                related_query_name="response",
+                to="formidable.application",
+                verbose_name="application this response belongs to",
+            ),
         ),
     ]
