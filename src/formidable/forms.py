@@ -2,10 +2,10 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms import ModelForm, ModelMultipleChoiceField
 
 from formidable.constants import CHOICES
-from formidable.models import Choice, FormField
+from formidable.models import Choice, Field
 
 
-class FormFieldAdminForm(ModelForm):
+class FieldAdminForm(ModelForm):
     choices = ModelMultipleChoiceField(
         queryset=Choice.objects.all(),
         required=False,
@@ -15,7 +15,7 @@ class FormFieldAdminForm(ModelForm):
     )
 
     class Meta:
-        model = FormField
+        model = Field
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
@@ -25,13 +25,13 @@ class FormFieldAdminForm(ModelForm):
             self.fields[CHOICES].initial = self.instance.choices.all()
 
     def save(self, commit=True):
-        form_field: FormField = super().save(commit=False)
+        field: Field = super().save(commit=False)
 
         if commit:
-            form_field.save()
+            field.save()
 
-        if form_field.pk:
-            form_field.choices.set(self.cleaned_data[CHOICES])
+        if field.pk:
+            field.choices.set(self.cleaned_data[CHOICES])
             self.save_m2m()
 
-        return form_field
+        return field

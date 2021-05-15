@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin, CreateModelMixin, UpdateModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, GenericViewSet, ReadOnlyModelViewSet
-from rest_framework_extensions.mixins import NestedViewSetMixin
+from rest_framework_extensions.mixins import NestedViewSetMixin, DetailSerializerMixin
 
-from formidable.models import FormSection, Application, Form, Response
+from formidable.models import Section, Application, Form, Response
 from formidable.serializers.request import (
     ApplicationCreateSerializer,
     ApplicationSerializer,
@@ -28,8 +28,8 @@ class FormViewSet(ReadOnlyModelViewSet):
 class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
     serializer_class = FormSectionSerializer
     permission_classes = (AllowAny,)
-    queryset: QuerySet[FormSection] = (
-        FormSection.objects.prefetch_related("fields")
+    queryset: QuerySet[Section] = (
+        Section.objects.prefetch_related("fields")
         .prefetch_related("fields__choices")
         .prefetch_related("fields__validators")
         .all()
@@ -56,15 +56,23 @@ class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
 )
 class ApplicationViewSet(
     NestedViewSetMixin,
+    DetailSerializerMixin,
     RetrieveModelMixin,
     CreateModelMixin,
     UpdateModelMixin,
     GenericViewSet,
 ):
     serializer_class = ApplicationSerializer
-    queryset: QuerySet[Application] = Application.objects.prefetch_related(
-        "responses__field"
-    ).all()
+    serializer_detail_class = ApplicationDetailSerializer
+    queryset: QuerySet[Application] = Application.objects.all()
+    queryset_detail = (
+        Application.objects.only(*ApplicationDetailSerializer.Meta.fields)
+        .prefetch_related("responses")
+        .select_related("responses__field")
+    )
+
+    # to be removed
+    permission_classes = (AllowAny,)
 
 
 class ResponseViewSet(NestedViewSetMixin, ModelViewSet, GenericViewSet):

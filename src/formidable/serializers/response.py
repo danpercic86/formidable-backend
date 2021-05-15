@@ -16,10 +16,10 @@ from formidable.constants import (
     ERRORS,
 )
 from formidable.models import (
-    FormField,
+    Field,
     Choice,
     Validator,
-    FormSection,
+    Section,
     Form,
     Application,
     Response,
@@ -43,7 +43,7 @@ class FormFieldSerializer(ModelSerializer):
     validators = ValidatorSerializer(many=True, read_only=True)
 
     class Meta:
-        model = FormField
+        model = Field
         exclude = CREATED, MODIFIED, FORM_SECTION
 
 
@@ -51,13 +51,13 @@ class FormSectionSerializer(ModelSerializer):
     fields = FormFieldSerializer(many=True, read_only=True)
 
     class Meta:
-        model = FormSection
+        model = Section
         exclude = CREATED, MODIFIED
 
 
 class FormSectionMinimalSerializer(ModelSerializer):
     class Meta:
-        model = FormSection
+        model = Section
         fields = ("id", NAME)
 
 

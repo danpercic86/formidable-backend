@@ -1,12 +1,12 @@
 from django.contrib.admin import ModelAdmin, register
 
 from formidable.abstractions import BaseModelAdmin
-from formidable.forms import FormFieldAdminForm
+from formidable.forms import FieldAdminForm
 from formidable.inlines import (
     ResponseInline,
     ValidatorsInline,
-    FormFieldInline,
-    FormSectionInline,
+    FieldInline,
+    SectionInline,
 )
 from formidable.constants import (
     CREATED,
@@ -21,8 +21,8 @@ from formidable.constants import (
     TYPE,
 )
 from formidable.models import (
-    FormField,
-    FormSection,
+    Field,
+    Section,
     Validator,
     Choice,
     Response,
@@ -31,9 +31,9 @@ from formidable.models import (
 )
 
 
-@register(FormField)
-class FormFieldAdmin(BaseModelAdmin):
-    form = FormFieldAdminForm
+@register(Field)
+class FieldAdmin(BaseModelAdmin):
+    form = FieldAdminForm
     inlines = (ValidatorsInline,)
     search_fields = (NAME,)
     list_display = ("__str__", FORM_SECTION, TYPE)
@@ -41,9 +41,9 @@ class FormFieldAdmin(BaseModelAdmin):
     list_select_related = (FORM_SECTION,)
 
 
-@register(FormSection)
-class FormSectionAdmin(BaseModelAdmin):
-    inlines = (FormFieldInline,)
+@register(Section)
+class SectionAdmin(BaseModelAdmin):
+    inlines = (FieldInline,)
     list_display = (
         "__str__",
         DESCRIPTION,
@@ -55,7 +55,7 @@ class FormSectionAdmin(BaseModelAdmin):
 
 @register(Form)
 class FormAdmin(BaseModelAdmin):
-    inlines = (FormSectionInline,)
+    inlines = (SectionInline,)
     list_display = ("__str__", DESCRIPTION)
 
 

@@ -16,7 +16,7 @@ from formidable.constants import (
     FIELD,
     VALUE,
 )
-from formidable.models import Response, Application, FormField
+from formidable.models import Response, Application, Field
 
 
 class ResponseCreateSerializer(ModelSerializer):
@@ -61,7 +61,7 @@ class ApplicationSerializer(ModelSerializer):
     def create(self, validated_data: Dict):
         fields_data: List[Dict] = validated_data.pop(FIELDS)
         for field_data in fields_data:
-            form_field: FormField
+            form_field: Field
             if form_field := field_data.get(FIELD):
                 errors = {}
                 for validator in form_field.validators.filter(is_enabled=True):

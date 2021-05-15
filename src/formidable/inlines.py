@@ -12,18 +12,18 @@ from formidable.constants import (
     DEPENDENT_VALUE,
     CHOICES,
 )
-from formidable.forms import FormFieldAdminForm
-from formidable.models import FormField, Validator, Response, FormSection
+from formidable.forms import FieldAdminForm
+from formidable.models import Field, Validator, Response, Section
 
 
-class FormSectionInline(TabularInline):
-    model = FormSection
+class SectionInline(TabularInline):
+    model = Section
     extra = 0
 
 
-class FormFieldInline(StackedInline):
-    form = FormFieldAdminForm
-    model = FormField
+class FieldInline(StackedInline):
+    form = FieldAdminForm
+    model = Field
     extra = 0
     fieldsets = (
         (
