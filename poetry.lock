@@ -101,11 +101,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "click"
-version = "7.1.2"
+version = "8.0.0"
 description = "Composable command line interface toolkit"
 category = "dev"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = ">=3.6"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
 name = "colorama"
@@ -241,7 +244,7 @@ dev = ["pytest (>=6,<7)", "pytest-cov (>=2,<3)", "pytest-django (>=4,<5)", "Djan
 
 [[package]]
 name = "django-jazzmin"
-version = "2.4.6"
+version = "2.4.7"
 description = "Drop-in theme for django admin, that utilises AdminLTE 3 & Bootstrap 4 to make yo' admin look jazzy"
 category = "main"
 optional = false
@@ -315,6 +318,17 @@ description = "Docutils -- Python Documentation Utilities"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
+name = "drf-extensions"
+version = "0.7.0"
+description = "Extensions for Django REST Framework"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+djangorestframework = ">=3.9.3"
 
 [[package]]
 name = "drf-spectacular"
@@ -635,7 +649,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "df9d582b3a991011ddc155dadc7bf6347b3d96d92d0b15b32429eecf987b4255"
+content-hash = "f7a69b2ab368138fda295a7a04c02256c76be6231d97276aa521f95e2f1387fc"
 
 [metadata.files]
 appdirs = [
@@ -709,8 +723,8 @@ chardet = [
     {file = "chardet-4.0.0.tar.gz", hash = "sha256:0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa"},
 ]
 click = [
-    {file = "click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"},
-    {file = "click-7.1.2.tar.gz", hash = "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a"},
+    {file = "click-8.0.0-py3-none-any.whl", hash = "sha256:e90e62ced43dc8105fb9a26d62f0d9340b5c8db053a814e25d95c19873ae87db"},
+    {file = "click-8.0.0.tar.gz", hash = "sha256:7d8c289ee437bcb0316820ccee14aefcb056e58d31830ecab8e47eda6540e136"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
@@ -760,8 +774,8 @@ django-extra-checks = [
     {file = "django_extra_checks-0.11.0-py3-none-any.whl", hash = "sha256:b1a19c03243d67c380c8af60c1ef837323c21e2fd888e0fd532d1df5f1866ba0"},
 ]
 django-jazzmin = [
-    {file = "django-jazzmin-2.4.6.tar.gz", hash = "sha256:f3fcf9b3a92ad4c11fae3d035a094b3cf7d53f2139d1c40ded834752c7e229b9"},
-    {file = "django_jazzmin-2.4.6-py3-none-any.whl", hash = "sha256:fd80925d7dd95b482997a7ded0e83a32978efac6621a49ec76cc7de07a04e87d"},
+    {file = "django-jazzmin-2.4.7.tar.gz", hash = "sha256:585d0c998875d6ada49ffa7b1bc6c21dcb90a53ba4d0f42f6b0d8fcfc212fa4c"},
+    {file = "django_jazzmin-2.4.7-py3-none-any.whl", hash = "sha256:90f3ceee87517aa4183d22eef8ec34067588a37ef02484ac47502865be211148"},
 ]
 django-model-utils = [
     {file = "django-model-utils-4.1.1.tar.gz", hash = "sha256:eb5dd05ef7d7ce6bc79cae54ea7c4a221f6f81e2aad7722933aee66489e7264b"},
@@ -784,6 +798,10 @@ djangorestframework-simplejwt = [
 docutils = [
     {file = "docutils-0.17.1-py2.py3-none-any.whl", hash = "sha256:cf316c8370a737a022b72b56874f6602acf974a37a9fba42ec2876387549fc61"},
     {file = "docutils-0.17.1.tar.gz", hash = "sha256:686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"},
+]
+drf-extensions = [
+    {file = "drf-extensions-0.7.0.tar.gz", hash = "sha256:0957ec025c39ccb1d56f1f3966c99f0cefd913f89d0184ecb7714681760246f8"},
+    {file = "drf_extensions-0.7.0-py2.py3-none-any.whl", hash = "sha256:6bec775ebefca78e739939f8d9b2a282083de1c19798fce4bba54aa38cfc7677"},
 ]
 drf-spectacular = [
     {file = "drf-spectacular-0.16.0.tar.gz", hash = "sha256:4a77c233c99e028b8905cd2cf05388524838ade97b95d5c6e4861e0c3c95af31"},
