@@ -11,7 +11,7 @@ class FormApiTests(APITestCase):
         FormFactory.create_batch(5)
 
     def test_list_returns_all_forms(self):
-        response = self.client.get('/tests_api/forms/')
+        response = self.client.get("/tests_api/forms/")
         pprint(response.__dict__)
         pprint(response.data)
         self.assertEqual(response.status_code, 200)

@@ -54,7 +54,8 @@ class ApplicationSerializer(ModelSerializer):
             if field := field_data.get(FIELD):
                 errors = {}
                 for validator in field.validators.filter(
-                        is_enabled=True):  # type: Validator
+                    is_enabled=True
+                ):  # type: Validator
                     if error := validator(field_data.get(VALUE), field):
                         errors.update(error.detail)
                 if errors:
