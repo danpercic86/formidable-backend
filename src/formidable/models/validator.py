@@ -77,9 +77,7 @@ class Validator(BaseModel):
             )
         return None
 
-    def validate_minlength(
-        self, value: str, field: Field
-    ) -> Optional[ValidationError]:
+    def validate_minlength(self, value: str, field: Field) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
         if len(value) < int(self.constraint):
@@ -93,9 +91,7 @@ class Validator(BaseModel):
             )
         return None
 
-    def validate_maxlength(
-        self, value: str, field: Field
-    ) -> Optional[ValidationError]:
+    def validate_maxlength(self, value: str, field: Field) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
         if len(value) > int(self.constraint):

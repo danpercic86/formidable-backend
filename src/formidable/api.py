@@ -25,7 +25,9 @@ class FormApi(DetailSerializerMixin, ReadOnlyModelViewSet):
     serializer_detail_class = FormDetailSerializer
     permission_classes = (AllowAny,)
     queryset: QuerySet[Form] = Form.objects.none()
-    queryset_detail = Form.objects.prefetch_related('sections').only(*FormDetailSerializer.Meta.fields[:2])
+    queryset_detail = Form.objects.prefetch_related("sections").only(
+        *FormDetailSerializer.Meta.fields[:2]
+    )
 
 
 class SectionApi(RetrieveModelMixin, GenericViewSet):
@@ -33,9 +35,9 @@ class SectionApi(RetrieveModelMixin, GenericViewSet):
     permission_classes = (AllowAny,)
     queryset: QuerySet[Section] = (
         Section.objects.prefetch_related("fields")
-            .prefetch_related("fields__choices")
-            .prefetch_related("fields__validators")
-            .all()
+        .prefetch_related("fields__choices")
+        .prefetch_related("fields__validators")
+        .all()
     )
 
 
@@ -70,8 +72,8 @@ class ApplicationApi(
     queryset: QuerySet[Application] = Application.objects.all()
     queryset_detail = (
         Application.objects.only(*ApplicationDetailSerializer.Meta.fields)
-            .prefetch_related("responses")
-            .select_related("responses__field")
+        .prefetch_related("responses")
+        .select_related("responses__field")
     )
 
     # to be removed
