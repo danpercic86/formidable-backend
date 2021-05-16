@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Dict, AnyStr, Union, List, Generic
+from typing import Dict
 
 from django.contrib.admin import AdminSite
 
@@ -221,7 +221,7 @@ JAZZMIN_SETTINGS: Dict = {
             "new_window": True,
         },
         # model admin to link to (Permissions checked against model)
-        {"model": "administration.User"},
+        {"model": AUTH_USER_MODEL},
         {"model": "common.Example"},
         # App with dropdown menu to all its models pages
         # (Permissions checked against models)
@@ -239,7 +239,7 @@ JAZZMIN_SETTINGS: Dict = {
             "url": "https://github.com/farridav/django-jazzmin/issues",
             "new_window": True,
         },
-        {"model": "administration.user"},
+        {"model": AUTH_USER_MODEL},
     ],
     #############
     # Side Menu #

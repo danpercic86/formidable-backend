@@ -1,4 +1,3 @@
-import json
 from pprint import pprint
 
 from rest_framework.test import APITestCase

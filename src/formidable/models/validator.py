@@ -1,4 +1,5 @@
-from typing import AnyStr, Optional
+from functools import reduce
+from typing import Optional
 
 from django.db.models import (
     ForeignKey,
@@ -57,50 +58,55 @@ class Validator(BaseModel):
         Validate that the input contains (or does *not* contain, if
         inverse_match is True) a match for the regular expression.
         """
-        if validate_attr := getattr(self, "validate_" + self.type, None):
-            return validate_attr(value, field)
-        return None
+        validate_attr = getattr(self, "_validate_" + self.type, None)
+        return validate_attr(value, field) if validate_attr else None
 
-    def validate_regex(self, value: str, field: Field) -> Optional[ValidationError]:
-        flags: int = 0
-        for flag in str(self.flags).split(","):
-            flags |= int(flag)
+    def _validate_regex(self, value: str, field: Field) -> Optional[ValidationError]:
+        flags = reduce(
+            lambda a, b: a | b, list(map(int, str(self.flags).split(","))), 0
+        )
         regex = _lazy_re_compile(self.constraint, flags)
         regex_matches = regex.search(str(value))
         invalid_input = regex_matches if self.inverse_match else not regex_matches
-        if invalid_input:
-            return ValidationError(
-                {
-                    "error": self.message,
-                    "field": field.id,
-                }
-            )
-        return None
 
-    def validate_minlength(self, value: str, field: Field) -> Optional[ValidationError]:
-        if not isinstance(value, str):
-            return ValidationError(f"'{value}' must be a string!")
-        if len(value) < int(self.constraint):
-            return ValidationError(
-                {
-                    "error": self.message
-                    if self.message
-                    else f"'{field}' must have minimum {self.constraint} characters!",
-                    "field": field.id,
-                }
-            )
-        return None
+        return self._error(field_id=field.id) if invalid_input else None
 
-    def validate_maxlength(self, value: str, field: Field) -> Optional[ValidationError]:
+    def _validate_minlength(
+        self, value: str, field: Field
+    ) -> Optional[ValidationError]:
         if not isinstance(value, str):
-            return ValidationError(f"'{value}' must be a string!")
-        if len(value) > int(self.constraint):
-            return ValidationError(
-                {
-                    "error": self.message
-                    if self.message
-                    else f"'{field}' must have maximum {self.constraint} characters!",
-                    "field": field.id,
-                }
+            return self._error(f"'{value}' must be a string!")
+
+        return (
+            self._error(
+                f"'{field}' must have minimum {self.constraint} characters!",
+                field.id,
             )
-        return None
+            if len(value) < int(self.constraint)
+            else None
+        )
+
+    def _validate_maxlength(
+        self, value: str, field: Field
+    ) -> Optional[ValidationError]:
+        if not isinstance(value, str):
+            return self._error(f"'{value}' must be a string!")
+
+        return (
+            self._error(
+                f"'{field}' must have maximum {self.constraint} characters!",
+                field.id,
+            )
+            if len(value) > int(self.constraint)
+            else None
+        )
+
+    def _error(
+        self, default="Something went wrong!", field_id: int = None
+    ) -> ValidationError:
+        message = default if field_id is None else self._message(default)
+        details = message if field_id is None else {"error": message, "field": field_id}
+        return ValidationError(details)
+
+    def _message(self, default="Something went wrong!") -> str:
+        return self.message if self.message else default
