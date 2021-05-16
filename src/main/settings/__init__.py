@@ -20,16 +20,16 @@ class Config:
 
     def get(
         self,
-        var_name: AnyStr,
-        default: Optional[Union[AnyStr, int, Tuple]] = None,
+        var_name: str,
+        default: Optional[Union[str, int, Tuple]] = None,
         cast: Callable = str,
         raise_error: bool = False,
-    ) -> Union[AnyStr, int, bool, List[AnyStr], None]:
+    ) -> Union[str, int, bool, List[str], None]:
         if value := self.__config.get(var_name, default):
             value = cast(value)
             if isinstance(value, str):
                 value = value.strip()
             return value
         if raise_error:
-            raise LookupError(f"Cannot find value for setting {var_name}!")
+            raise LookupError(fr"Cannot find value for setting {var_name}!")
         return None

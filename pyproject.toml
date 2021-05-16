@@ -20,7 +20,7 @@ django-model-utils = "^4.1.1"
 drf-spectacular = "^0.16.0"
 django-jazzmin = "^2.4.7"
 django-tabular-permissions = "^2.8"
-dj-rest-auth = {extras = ["with_social"], version = "^2.1.4"}
+dj-rest-auth = { extras = ["with_social"], version = "^2.1.4" }
 djangorestframework-simplejwt = "^4.6.0"
 drf-extensions = "^0.7.0"
 
@@ -32,6 +32,9 @@ django-querycount = "^0.7.0"
 django-debug-toolbar = "^3.2.1"
 nplusone = "^1.0.0"
 django-extra-checks = "^0.11.0"
+factory-boy = "^3.2.0"
+coverage = { extras = ["toml"], version = "5.5" }
+mypy = "^0.812"
 
 [tool.black]
 target-version = ['py38']
@@ -69,6 +72,12 @@ ignore = """
 
 [tool.pylint.format]
 max-line-length = "88"
+
+[tool.coverage.run]
+omit = [".venv/*", "*/site-packages/*"]
+
+[tool.coverage.report]
+fail_under = 100.0
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

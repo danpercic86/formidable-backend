@@ -69,6 +69,7 @@ APPLICANT = "applicant"
 FORM = "form"
 ID = "id"
 RESPONSES = "responses"
+SECTIONS = "sections"
 
 CREATED_MODIFIED = (
     "Created / Modified",

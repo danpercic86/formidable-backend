@@ -52,7 +52,7 @@ class Validator(BaseModel):
             ),
         ]
 
-    def __call__(self, value: AnyStr, field: Field) -> Optional[ValidationError]:
+    def __call__(self, value: Optional[str], field: Field) -> Optional[ValidationError]:
         """
         Validate that the input contains (or does *not* contain, if
         inverse_match is True) a match for the regular expression.
@@ -61,7 +61,7 @@ class Validator(BaseModel):
             return validate_attr(value, field)
         return None
 
-    def validate_regex(self, value: AnyStr, field: Field) -> Optional[ValidationError]:
+    def validate_regex(self, value: str, field: Field) -> Optional[ValidationError]:
         flags: int = 0
         for flag in str(self.flags).split(","):
             flags |= int(flag)
@@ -78,7 +78,7 @@ class Validator(BaseModel):
         return None
 
     def validate_minlength(
-        self, value: AnyStr, field: Field
+        self, value: str, field: Field
     ) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")
@@ -94,7 +94,7 @@ class Validator(BaseModel):
         return None
 
     def validate_maxlength(
-        self, value: AnyStr, field: Field
+        self, value: str, field: Field
     ) -> Optional[ValidationError]:
         if not isinstance(value, str):
             return ValidationError(f"'{value}' must be a string!")

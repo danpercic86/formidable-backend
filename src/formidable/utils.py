@@ -1,9 +1,7 @@
-from typing import AnyStr
-
 import datetime
 
 
-def get_upload_path(instance, file_name: AnyStr) -> AnyStr:
+def get_upload_path(instance, file_name: str) -> str:
     """
     Takes filename and creates new one with random string at the end
     :param instance: DO NOT delete this parameter, it's required for upload_to

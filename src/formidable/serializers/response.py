@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from rest_framework.serializers import ModelSerializer
 
 from formidable.constants import (
@@ -20,22 +22,22 @@ class ResponseDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Response
-        fields = ID, FIELD, VALUE, ERRORS
+        fields: Tuple = ID, FIELD, VALUE, ERRORS
         read_only_fields = fields
 
 
 class ResponseCreateSerializer(ModelSerializer):
     class Meta:
         model = Response
-        exclude = CREATED, MODIFIED, STATUS_CHANGED, ERRORS, OBSERVATIONS, STATUS
+        exclude: Tuple = CREATED, MODIFIED, STATUS_CHANGED, ERRORS, OBSERVATIONS, STATUS
 
 
 class ApplicationResponseCreateSerializer(ResponseCreateSerializer):
     class Meta(ResponseCreateSerializer.Meta):
-        exclude = ResponseCreateSerializer.Meta.exclude + (APPLICATION,)
+        exclude: Tuple = ResponseCreateSerializer.Meta.exclude + (APPLICATION,)
 
 
 class ResponseSerializer(ModelSerializer):
     class Meta:
         model = Response
-        exclude = CREATED, MODIFIED, STATUS_CHANGED
+        exclude: Tuple = CREATED, MODIFIED, STATUS_CHANGED

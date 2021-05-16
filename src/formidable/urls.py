@@ -1,18 +1,18 @@
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
-from formidable.views import (
-    FormViewSet,
-    ApplicationViewSet,
-    FormSectionViewSet,
-    ResponseViewSet,
+from formidable.api import (
+    FormApi,
+    ApplicationApi,
+    SectionApi,
+    ResponseApi,
 )
 
 router = ExtendedSimpleRouter()
-router.register("forms", FormViewSet)
-router.register("sections", FormSectionViewSet)
-router.register("applications", ApplicationViewSet).register(
+router.register("forms", FormApi)
+router.register("sections", SectionApi)
+router.register("applications", ApplicationApi).register(
     "responses",
-    ResponseViewSet,
+    ResponseApi,
     basename="responses",
     parents_query_lookups=["application_id"],
 )

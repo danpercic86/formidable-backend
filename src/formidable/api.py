@@ -8,31 +8,34 @@ from rest_framework_extensions.mixins import NestedViewSetMixin, DetailSerialize
 
 from formidable.models import Section, Application, Form, Response
 from formidable.serializers import (
-    SectionSerializer,
-    FormSerializer,
-    ApplicationDetailSerializer,
-)
-from formidable.serializers import (
     ApplicationCreateSerializer,
     ApplicationSerializer,
     ResponseSerializer,
 )
+from formidable.serializers import (
+    SectionSerializer,
+    FormSerializer,
+    ApplicationDetailSerializer,
+)
+from formidable.serializers.form import FormDetailSerializer
 
 
-class FormViewSet(ReadOnlyModelViewSet):
+class FormApi(DetailSerializerMixin, ReadOnlyModelViewSet):
     serializer_class = FormSerializer
+    serializer_detail_class = FormDetailSerializer
     permission_classes = (AllowAny,)
-    queryset: QuerySet[Form] = Form.objects.prefetch_related("sections").all()
+    queryset: QuerySet[Form] = Form.objects.none()
+    queryset_detail = Form.objects.prefetch_related('sections').only(*FormDetailSerializer.Meta.fields[:2])
 
 
-class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
+class SectionApi(RetrieveModelMixin, GenericViewSet):
     serializer_class = SectionSerializer
     permission_classes = (AllowAny,)
     queryset: QuerySet[Section] = (
         Section.objects.prefetch_related("fields")
-        .prefetch_related("fields__choices")
-        .prefetch_related("fields__validators")
-        .all()
+            .prefetch_related("fields__choices")
+            .prefetch_related("fields__validators")
+            .all()
     )
 
 
@@ -54,7 +57,7 @@ class FormSectionViewSet(RetrieveModelMixin, GenericViewSet):
         responses={status.HTTP_200_OK: ApplicationDetailSerializer},
     ),
 )
-class ApplicationViewSet(
+class ApplicationApi(
     NestedViewSetMixin,
     DetailSerializerMixin,
     RetrieveModelMixin,
@@ -67,15 +70,15 @@ class ApplicationViewSet(
     queryset: QuerySet[Application] = Application.objects.all()
     queryset_detail = (
         Application.objects.only(*ApplicationDetailSerializer.Meta.fields)
-        .prefetch_related("responses")
-        .select_related("responses__field")
+            .prefetch_related("responses")
+            .select_related("responses__field")
     )
 
     # to be removed
     permission_classes = (AllowAny,)
 
 
-class ResponseViewSet(NestedViewSetMixin, ModelViewSet, GenericViewSet):
+class ResponseApi(NestedViewSetMixin, ModelViewSet, GenericViewSet):
     serializer_class = ResponseSerializer
     permission_classes = (AllowAny,)
     queryset: QuerySet[Response] = Response.objects.all()

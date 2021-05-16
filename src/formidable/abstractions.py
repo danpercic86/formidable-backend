@@ -1,4 +1,4 @@
-from typing import AnyStr
+from typing import AnyStr, Tuple, Dict
 
 from django.contrib.admin import ModelAdmin
 from django.db.models import Model, SlugField
@@ -50,9 +50,9 @@ class BaseModel(Model):
 
 #              ADMIN
 class BaseModelAdmin(ModelAdmin):
-    list_filter = (CREATED, MODIFIED)
-    readonly_fields = (CREATED, MODIFIED)
+    list_filter: Tuple[str, ...] = (CREATED, MODIFIED)
+    readonly_fields: Tuple[str, ...] = (CREATED, MODIFIED)
 
 
 class SlugableModelAdmin(ModelAdmin):
-    prepopulated_fields = {SLUG: (NAME,)}
+    prepopulated_fields: Dict[str, Tuple[str, ...]] = {SLUG: (NAME,)}

@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Dict, AnyStr, Union, List, Generic
 
 from django.contrib.admin import AdminSite
 
@@ -164,7 +165,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
-SPECTACULAR_SETTINGS = {
+SPECTACULAR_SETTINGS: Dict = {
     # path prefix is used for tagging the discovered operations.
     # use '/api/v[0-9]' for tagging apis like '/api/v1/albums' with ['albums']
     "SCHEMA_PATH_PREFIX": r"/api",
@@ -176,7 +177,7 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_FAVICON_HREF": "//unpkg.com/swagger-ui-dist@3.35.1/favicon-32x32.png",
     # General schema metadata. Refer to spec for valid inputs
     # https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#openapi-object
-    "TITLE": AdminSite.site_title + " API",
+    "TITLE": str(AdminSite.site_title) + " API",
     "DESCRIPTION": "API Description",
     "TOS": None,
     # Optional: MAY contain 'name', 'url', 'email'
@@ -194,7 +195,7 @@ SPECTACULAR_SETTINGS = {
     # 'EXTERNAL_DOCS': {},
 }
 
-JAZZMIN_SETTINGS = {
+JAZZMIN_SETTINGS: Dict = {
     # square logo to use for your site, must be present in static files,
     # used for favicon and brand on top left
     # 'site_logo': 'books/img/logo.png',
