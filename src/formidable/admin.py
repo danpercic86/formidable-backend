@@ -14,7 +14,7 @@ from formidable.constants import (
     NAME,
     FIELDS,
     STATUS_CHANGED,
-    FORM_SECTION,
+    SECTION,
     DESCRIPTION,
     BUTTON_TEXT,
     APPLICATION,
@@ -36,9 +36,9 @@ class FieldAdmin(BaseModelAdmin):
     form = FieldAdminForm
     inlines = (ValidatorsInline,)
     search_fields = (NAME,)
-    list_display = ("__str__", FORM_SECTION, TYPE)
-    list_filter = (FORM_SECTION, TYPE, CREATED, MODIFIED)
-    list_select_related = (FORM_SECTION,)
+    list_display = ("__str__", SECTION, TYPE)
+    list_filter = (SECTION, TYPE, CREATED, MODIFIED)
+    list_select_related = (SECTION,)
 
 
 @register(Section)

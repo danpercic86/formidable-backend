@@ -4,7 +4,7 @@ SHELL := /bin/bash
 RUN := poetry run
 MANAGE_PY := $(RUN) $(BASE_DIR)/manage.py
 
-run:
+run: superuser
 	$(MANAGE_PY) runserver
 
 migrations:

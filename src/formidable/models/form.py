@@ -6,10 +6,8 @@ from formidable.abstractions import BaseModel
 
 
 class Form(TimeStampedModel, BaseModel):
-    name = CharField(_("form name"), max_length=200)
-    description = TextField(
-        _("form description"), max_length=500, blank=True, default=""
-    )
+    name = CharField(_("name"), max_length=200)
+    description = TextField(_("description"), max_length=500, blank=True, default="")
 
     class Meta:
         db_table = "forms"

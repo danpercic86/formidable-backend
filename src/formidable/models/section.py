@@ -10,17 +10,15 @@ class Section(TimeStampedModel, BaseModel):
     form = ForeignKey(
         Form,
         on_delete=CASCADE,
-        verbose_name=_("related form"),
+        verbose_name=_("form"),
         related_name="sections",
         related_query_name="section",
     )
-    name = CharField(_("section name"), max_length=200, blank=True, default="")
-    description = TextField(
-        _("section description"), max_length=500, blank=True, default=""
-    )
+    name = CharField(_("name"), max_length=200, blank=True, default="")
+    description = TextField(_("description"), max_length=500, blank=True, default="")
     button_text = CharField(_("submit button text"), max_length=50, default="Submit")
 
     class Meta:
         db_table = "form_sections"
-        verbose_name = _("form section")
-        verbose_name_plural = _("form sections")
+        verbose_name = _("section")
+        verbose_name_plural = _("sections")

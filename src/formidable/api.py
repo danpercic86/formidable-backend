@@ -33,11 +33,8 @@ class FormApi(DetailSerializerMixin, ReadOnlyModelViewSet):
 class SectionApi(RetrieveModelMixin, GenericViewSet):
     serializer_class = SectionSerializer
     permission_classes = (AllowAny,)
-    queryset: QuerySet[Section] = (
-        Section.objects.prefetch_related("fields")
-        .prefetch_related("fields__choices")
-        .prefetch_related("fields__validators")
-        .all()
+    queryset: QuerySet[Section] = Section.objects.prefetch_related(
+        "fields", "fields__choices", "fields__validators"
     )
 
 

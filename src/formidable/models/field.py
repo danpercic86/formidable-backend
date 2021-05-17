@@ -14,14 +14,14 @@ from formidable.models.section import Section
 
 
 class Field(TimeStampedModel, BaseModel):
-    name = CharField(_("field name"), max_length=100)
-    form_section = ForeignKey(
+    section = ForeignKey(
         Section,
         on_delete=CASCADE,
-        verbose_name=_("related form section"),
+        verbose_name=_("section"),
         related_name="fields",
         related_query_name="field",
     )
+    name = CharField(_("name"), max_length=100)
     type = CharField(
         _("type"), max_length=50, choices=FieldTypes.choices, default=FieldTypes.TEXT
     )

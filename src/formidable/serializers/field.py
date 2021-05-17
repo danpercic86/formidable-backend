@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from formidable.constants import CREATED, MODIFIED, FORM_SECTION
+from formidable.constants import CREATED, MODIFIED, SECTION
 from formidable.models import Field
 from formidable.serializers.choice import ChoiceSerializer
 from formidable.serializers.validator import ValidatorSerializer
@@ -12,4 +12,4 @@ class FieldSerializer(ModelSerializer):
 
     class Meta:
         model = Field
-        exclude = CREATED, MODIFIED, FORM_SECTION
+        exclude = CREATED, MODIFIED, SECTION

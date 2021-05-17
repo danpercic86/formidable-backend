@@ -9,7 +9,7 @@ from formidable.models.field import Field
 
 
 class Choice(TimeStampedModel, BaseModel):
-    name = CharField(_("choice name"), max_length=300)
+    name = CharField(_("name"), max_length=300)
     fields = ManyToManyField(
         Field,
         verbose_name=_("fields"),
