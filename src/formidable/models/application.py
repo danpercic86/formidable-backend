@@ -5,7 +5,7 @@ from model_utils.models import TimeStampedModel, StatusModel
 
 from administration.models import User
 from formidable.abstractions import BaseModel
-from formidable.models.section import Section
+from formidable.models.form import Form
 
 
 class Application(TimeStampedModel, StatusModel, BaseModel):
@@ -18,7 +18,7 @@ class Application(TimeStampedModel, StatusModel, BaseModel):
         related_query_name="application",
     )
     form = ForeignKey(
-        Section,
+        Form,
         verbose_name=_("form this response belongs to"),
         on_delete=CASCADE,
         related_name="applications",

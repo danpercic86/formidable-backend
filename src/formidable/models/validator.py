@@ -31,13 +31,16 @@ class Validator(BaseModel):
         related_query_name="validator",
     )
     type = CharField(
-        _("type"), max_length=10, choices=ValidatorTypes.choices, default=None
+        _("type"),
+        max_length=10,
+        choices=ValidatorTypes.choices,
+        default=ValidatorTypes.MIN_LENGTH,
     )
     constraint = CharField(_("constraint"), max_length=500)
     message = CharField(_("message"), max_length=500, default="", blank=True)
     description = CharField(_("description"), max_length=500, default="", blank=True)
     is_enabled = BooleanField(_("is enabled"), default=True)
-    inverse_match = BooleanField(_("inverse match"))
+    inverse_match = BooleanField(_("inverse match"), default=False)
     flags = CharField(
         _("flags"), choices=RegexFlags.choices, default="", max_length=5, blank=True
     )

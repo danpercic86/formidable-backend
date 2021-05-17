@@ -9,8 +9,6 @@ from rest_framework_extensions.mixins import NestedViewSetMixin, DetailSerialize
 from formidable.models import Section, Application, Form, Response
 from formidable.serializers import (
     ApplicationCreateSerializer,
-    ApplicationSerializer,
-    ResponseSerializer,
 )
 from formidable.serializers import (
     SectionSerializer,
@@ -18,6 +16,10 @@ from formidable.serializers import (
     ApplicationDetailSerializer,
 )
 from formidable.serializers.form import FormDetailSerializer
+from formidable.serializers.response import (
+    NestedResponseCreateSerializer,
+    ResponseDetailSerializer,
+)
 
 
 class FormApi(DetailSerializerMixin, ReadOnlyModelViewSet):
@@ -64,7 +66,7 @@ class ApplicationApi(
     UpdateModelMixin,
     GenericViewSet,
 ):
-    serializer_class = ApplicationSerializer
+    serializer_class = ApplicationCreateSerializer
     serializer_detail_class = ApplicationDetailSerializer
     queryset: QuerySet[Application] = Application.objects.all()
     queryset_detail = (
@@ -72,12 +74,17 @@ class ApplicationApi(
         .prefetch_related("responses")
         .select_related("responses__field")
     )
-
     # to be removed
     permission_classes = (AllowAny,)
 
 
-class ResponseApi(NestedViewSetMixin, ModelViewSet, GenericViewSet):
-    serializer_class = ResponseSerializer
+@extend_schema_view(
+    create=extend_schema(
+        request=NestedResponseCreateSerializer(many=True),
+        responses={status.HTTP_201_CREATED: ResponseDetailSerializer},
+    )
+)
+class ResponseApi(NestedViewSetMixin, ModelViewSet):
+    serializer_class = NestedResponseCreateSerializer
     permission_classes = (AllowAny,)
     queryset: QuerySet[Response] = Response.objects.all()

@@ -3,14 +3,12 @@ __all__ = [
     "FormSerializer",
     "ApplicationDetailSerializer",
     "ApplicationCreateSerializer",
-    "ApplicationSerializer",
     "ResponseSerializer",
 ]
 
 from formidable.serializers.application import (
     ApplicationDetailSerializer,
     ApplicationCreateSerializer,
-    ApplicationSerializer,
 )
 from formidable.serializers.form import FormSerializer
 from formidable.serializers.response import ResponseSerializer

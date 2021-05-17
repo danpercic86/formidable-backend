@@ -32,7 +32,7 @@ class ResponseCreateSerializer(ModelSerializer):
         exclude: Tuple = CREATED, MODIFIED, STATUS_CHANGED, ERRORS, OBSERVATIONS, STATUS
 
 
-class ApplicationResponseCreateSerializer(ResponseCreateSerializer):
+class NestedResponseCreateSerializer(ResponseCreateSerializer):
     class Meta(ResponseCreateSerializer.Meta):
         exclude: Tuple = ResponseCreateSerializer.Meta.exclude + (APPLICATION,)
 
