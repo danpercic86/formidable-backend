@@ -11,6 +11,7 @@ from formidable.constants import (
     DEPENDENT_FIELD,
     DEPENDENT_VALUE,
     CHOICES,
+    IS_REQUIRED,
 )
 from formidable.forms import FieldAdminForm
 from formidable.models import Field, Validator, Response, Section
@@ -33,6 +34,7 @@ class FieldInline(StackedInline):
                     TYPE,
                     NAME,
                     PLACEHOLDER,
+                    IS_REQUIRED,
                     (DEPENDENT_FIELD, DEPENDENT_VALUE),
                     CHOICES,
                 )

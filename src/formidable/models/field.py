@@ -4,6 +4,7 @@ from django.db.models import (
     CASCADE,
     CheckConstraint,
     Q,
+    BooleanField,
 )
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
@@ -26,6 +27,7 @@ class Field(TimeStampedModel, BaseModel):
         _("type"), max_length=50, choices=FieldTypes.choices, default=FieldTypes.TEXT
     )
     placeholder = CharField(_("placeholder"), max_length=200, default="", blank=True)
+    is_required = BooleanField(_("is required"), default=False)
     dependent_field = ForeignKey(
         "Field",
         on_delete=CASCADE,

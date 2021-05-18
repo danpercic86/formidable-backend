@@ -28,6 +28,7 @@ class FieldFactory(DjangoModelFactory):
 
     section = factory.SubFactory(SectionFactory)
     name = factory.Faker("name")
+    is_required = False
 
 
 class ValidatorFactory(DjangoModelFactory):
