@@ -7,13 +7,13 @@ from rest_framework.test import APITestCase, URLPatternsTestCase
 
 import formidable.urls
 from administration.models import User
-from formidable.models import Form, Section, Field, Validator
+from formidable.constants import Errors, Codes
+from formidable.models import Form, Section, Field
 from tests.formidable.factories import (
     FormFactory,
     SectionFactory,
     FieldFactory,
     UserFactory,
-    ValidatorFactory,
 )
 
 
@@ -24,8 +24,9 @@ class ApplicationsApiTests(APITestCase, URLPatternsTestCase):
     def setUp(self) -> None:
         self.form: Form = FormFactory.create()
         self.section: Section = SectionFactory.create(form=self.form)
-        self.fields: List[Field] = FieldFactory.create_batch(3, section=self.section)
-        self.validator: Validator = ValidatorFactory.create(field=self.fields[2])
+        self.fields: List[Field] = FieldFactory.create_batch(4, section=self.section)
+        self.fields[3].section = SectionFactory.create(form=self.form)
+        self.fields[3].save()
         self.user: User = UserFactory.create()
         self.client.force_authenticate(user=self.user)
 
@@ -72,14 +73,59 @@ class ApplicationsApiTests(APITestCase, URLPatternsTestCase):
         self.assertEqual(str(detail), "Authentication credentials were not provided.")
         self.assertEqual(detail.code, "not_authenticated")
 
-    def test_create_application_returns_201(self):
+    def test_create_application_successful(self):
+        self.fields[0].is_required = True
+        self.fields[0].save()
+        self.fields[1].is_required = True
+        self.fields[1].save()
         data = {
             "form": self.form.id,
             "responses": [
                 {"value": "random value with longer name", "field": self.fields[0].id},
-                {"value": "anther value", "field": self.fields[1].id},
+                {"value": "some thing here", "field": self.fields[1].id},
+                {"value": "anther value", "field": self.fields[2].id},
+            ],
+        }
+
+        # self.validator: Validator = ValidatorFactory.create(field=self.fields[0])
+
+        response = self.client.post(self.list_url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_application_returns_error_when_field_from_different_section(self):
+        data = {
+            "form": self.form.id,
+            "responses": [
+                {"value": "random value with longer name", "field": self.fields[3].id},
+                {"value": "some thing here", "field": self.fields[1].id},
+                {"value": "anther value", "field": self.fields[2].id},
             ],
         }
 
         response = self.client.post(self.list_url, data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        detail: List[ErrorDetail] = response.data[Codes.NOT_SAME_SECTION]
+        self.assertEqual(len(detail), 1)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(detail[0], Errors.NotSameSection)
+
+    def test_create_application_returns_error_when_missing_required_fields(self):
+        self.fields[0].is_required = True
+        self.fields[0].save()
+        self.fields[1].is_required = True
+        self.fields[1].save()
+        data = {
+            "form": self.form.id,
+            "responses": [
+                {"value": "random value with longer name", "field": self.fields[0].id},
+                {"value": "anther value", "field": self.fields[2].id},
+            ],
+        }
+
+        response = self.client.post(self.list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertGreaterEqual(len(response.data.values()), 1)
+
+        for detail in response.data.values():  # type: List[ErrorDetail]
+            self.assertEqual(len(detail), 1)
+            self.assertEqual(detail[0], Errors.RequiredField)

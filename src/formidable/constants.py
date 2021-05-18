@@ -2,6 +2,7 @@ import re
 
 from django.db.models import TextChoices, IntegerChoices
 from django.utils.translation import gettext as _
+from rest_framework.exceptions import ErrorDetail
 
 
 class FieldTypes(TextChoices):
@@ -39,6 +40,21 @@ class RegexFlags(IntegerChoices):
     UNICODE = re.U, _("unicode")
 
 
+class Codes:
+    REQUIRED_FIELD = "required_field"
+    NOT_SAME_SECTION = "not_same_section"
+
+
+class Errors:
+    REQUIRED_FIELD = {"string": "This field is required!", "code": Codes.REQUIRED_FIELD}
+    RequiredField = ErrorDetail(**REQUIRED_FIELD)
+    NOT_SAME_SECTION = {
+        "string": "There is a mix of responses for fields from different sections",
+        "code": Codes.NOT_SAME_SECTION,
+    }
+    NotSameSection = ErrorDetail(**NOT_SAME_SECTION)
+
+
 CREATED = "created"
 MODIFIED = "modified"
 NAME = "name"
@@ -70,6 +86,7 @@ FORM = "form"
 ID = "id"
 RESPONSES = "responses"
 SECTIONS = "sections"
+IS_REQUIRED = "is_required"
 
 CREATED_MODIFIED = (
     "Created / Modified",
