@@ -1,11 +1,10 @@
 from pprint import pprint
-from typing import Dict, List, Union
+from typing import Dict, List, Any, OrderedDict
 
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CurrentUserDefault, HiddenField
 from rest_framework.serializers import ModelSerializer
 
-from administration.models import User
 from formidable.constants import (
     RESPONSES,
     FORM,
@@ -17,7 +16,7 @@ from formidable.constants import (
     FIELD,
     VALUE,
 )
-from formidable.models import Application, Response, Validator, Form, Field
+from formidable.models import Application, Response, Validator
 from formidable.serializers.response import (
     ResponseDetailSerializer,
     NestedResponseCreateSerializer,
@@ -41,35 +40,29 @@ class ApplicationCreateSerializer(ModelSerializer):
         model = Application
         exclude = CREATED, MODIFIED, STATUS, STATUS_CHANGED
 
-    def validate(
-        self,
-        attrs: Dict[str, Union[List[Dict[str, Union[str, Field]]], User, Form, str]],
-    ):
+    def validate(self, attrs: Dict):
         errors = {}
-        pprint(attrs)
 
-        for response_data in attrs.get(RESPONSES):
-            for validator in response_data.get(FIELD).validators.filter(
+        for response_data in attrs[RESPONSES]:  # type: OrderedDict
+            for validator in response_data[FIELD].validators.filter(
                 is_enabled=True
             ):  # type: Validator
-                if error := validator(response_data.get(VALUE)):
+                if error := validator(response_data[VALUE]):
                     errors.update(error.detail)
 
         if errors:
             raise ValidationError(errors)
         return attrs
 
-    def create(
-        self, validated_data: Dict[str, Union[Form, List[Dict[str, Union[str, Field]]]]]
-    ):
-        print("Serializer create")
+    def create(self, validated_data: Dict[str, Any]):
         pprint(validated_data)
         pprint(self.context)
 
-        responses_data = validated_data.pop(RESPONSES)
+        responses_data: List[Dict] = validated_data.pop(RESPONSES)
         application = Application.objects.create(**validated_data)
 
-        for response_data in responses_data:
-            Response.objects.create(application=application, **response_data)
+        Response.objects.bulk_create(
+            [Response(application=application, **data) for data in responses_data]
+        )
 
         return application

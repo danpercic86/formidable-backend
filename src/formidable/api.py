@@ -74,8 +74,6 @@ class ApplicationApi(
         .prefetch_related("responses")
         .select_related("responses__field")
     )
-    # to be removed
-    permission_classes = (AllowAny,)
 
 
 @extend_schema_view(

@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from typing import Dict
 
@@ -94,6 +95,12 @@ DATABASES = {
     }
 }
 
+if "test" in sys.argv:
+    DATABASES["default"]["USER"] = "root"
+    DATABASES["default"]["PASSWORD"] = "toor"
+    DATABASES["default"]["HOST"] = "localhost"
+    DATABASES["default"]["PORT"] = "5555"
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = "administration.User"
@@ -163,6 +170,10 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "TEST_REQUEST_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
 }
 
 SPECTACULAR_SETTINGS: Dict = {
