@@ -1,4 +1,3 @@
-from pprint import pprint
 from typing import Dict, List, Any, OrderedDict
 
 from rest_framework.exceptions import ValidationError
@@ -55,9 +54,6 @@ class ApplicationCreateSerializer(ModelSerializer):
         return attrs
 
     def create(self, validated_data: Dict[str, Any]):
-        pprint(validated_data)
-        pprint(self.context)
-
         responses_data: List[Dict] = validated_data.pop(RESPONSES)
         application = Application.objects.create(**validated_data)
 

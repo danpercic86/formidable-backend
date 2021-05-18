@@ -17,7 +17,7 @@ class SectionFactory(DjangoModelFactory):
     class Meta:
         model = Section
 
-    form = FormFactory.create()
+    form = factory.SubFactory(FormFactory)
     name = factory.Faker("name")
     description = factory.Faker("text")
 
@@ -26,7 +26,7 @@ class FieldFactory(DjangoModelFactory):
     class Meta:
         model = Field
 
-    section = SectionFactory.create()
+    section = factory.SubFactory(SectionFactory)
     name = factory.Faker("name")
 
 
@@ -34,7 +34,7 @@ class ValidatorFactory(DjangoModelFactory):
     class Meta:
         model = Validator
 
-    field = FieldFactory.create()
+    field = factory.SubFactory(FieldFactory)
     type = "minlength"
     constraint = 20
 

@@ -38,7 +38,7 @@ class ApplicationsApiTests(APITestCase, URLPatternsTestCase):
         self.form: Form = FormFactory.create()
         self.section: Section = SectionFactory.create(form=self.form)
         self.fields: List[Field] = FieldFactory.create_batch(3, section=self.section)
-        self.validator: Validator = ValidatorFactory.create(field=self.fields[0])
+        self.validator: Validator = ValidatorFactory.create(field=self.fields[2])
         self.user: User = UserFactory.create()
         self.client.force_authenticate(user=self.user)
 
