@@ -1,4 +1,3 @@
-from pprint import pprint
 from typing import List
 
 from django.urls import path, include, reverse
@@ -18,20 +17,8 @@ from tests.formidable.factories import (
 )
 
 
-class FormApiTests(APITestCase):
-    def setUp(self) -> None:
-        FormFactory.create_batch(5)
-
-    def test_list_returns_all_forms(self):
-        response = self.client.get("/api/forms/")
-        pprint(response.__dict__)
-        pprint(response.data)
-        self.assertEqual(response.status_code, 200)
-
-
 class ApplicationsApiTests(APITestCase, URLPatternsTestCase):
     urlpatterns = [path("api/", include(formidable.urls.common_urls))]
-
     list_url = reverse("application-list")
 
     def setUp(self) -> None:
@@ -42,20 +29,39 @@ class ApplicationsApiTests(APITestCase, URLPatternsTestCase):
         self.user: User = UserFactory.create()
         self.client.force_authenticate(user=self.user)
 
-    def test_post_with_no_content_returns_error(self):
+    def _assertFieldIsRequired(self, error):
+        self.assertEqual(error.__len__(), 1)
+        self.assertEqual(str(error[0]), "This field is required.")
+        self.assertEqual(error[0].code, "required")
+
+    def test_post_with_empty_body_returns_error(self):
         response = self.client.post(self.list_url)
-        form_error: List[ErrorDetail] = response.data.get("form")
-        responses_error: List[ErrorDetail] = response.data.get("responses")
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self._assertFieldIsRequired(response.data.get("form"))
+        self._assertFieldIsRequired(response.data.get("responses"))
 
-        self.assertEqual(form_error.__len__(), 1)
-        self.assertEqual(str(form_error[0]), "This field is required.")
-        self.assertEqual(form_error[0].code, "required")
+    def test_post_with_no_form_returns_error(self):
+        data = {
+            "responses": [
+                {
+                    "value": "some value here that should work",
+                    "field": self.fields[0].id,
+                }
+            ]
+        }
 
-        self.assertEqual(responses_error.__len__(), 1)
-        self.assertEqual(str(responses_error[0]), "This field is required.")
-        self.assertEqual(responses_error[0].code, "required")
+        response = self.client.post(self.list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self._assertFieldIsRequired(response.data.get("form"))
+
+    def test_post_with_no_responses_returns_error(self):
+        data = {"form": self.form.id}
+        response = self.client.post(self.list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self._assertFieldIsRequired(response.data.get("responses"))
 
     def test_authentication_is_required(self):
         self.client.force_authenticate(user=None)
