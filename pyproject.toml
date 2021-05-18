@@ -20,7 +20,7 @@ django-model-utils = "^4.1.1"
 drf-spectacular = "^0.16.0"
 django-jazzmin = "^2.4.7"
 django-tabular-permissions = "^2.8"
-dj-rest-auth = { extras = ["with_social"], version = "^2.1.4" }
+dj-rest-auth = { extras = ["with_social"], version = "^2.1.5" }
 djangorestframework-simplejwt = "^4.6.0"
 drf-extensions = "^0.7.0"
 
