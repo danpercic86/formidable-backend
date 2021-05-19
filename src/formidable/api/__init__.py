@@ -1,4 +1,4 @@
-__all__ = ['FormApi', 'ApplicationApi', 'NestedResponseApi', 'SectionApi']
+__all__ = ["FormApi", "ApplicationApi", "NestedResponseApi", "SectionApi"]
 
 from formidable.api.application import ApplicationApi
 from formidable.api.form import FormApi
