@@ -5,8 +5,10 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from formidable.models import Response
-from formidable.serializers.response import NestedResponseCreateSerializer, \
-    ResponseDetailSerializer
+from formidable.serializers.response import (
+    NestedResponseCreateSerializer,
+    ResponseDetailSerializer,
+)
 
 
 @extend_schema_view(

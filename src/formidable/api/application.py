@@ -6,8 +6,10 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework_extensions.mixins import NestedViewSetMixin, DetailSerializerMixin
 
 from formidable.models import Application
-from formidable.serializers import ApplicationCreateSerializer, \
-    ApplicationDetailSerializer
+from formidable.serializers import (
+    ApplicationCreateSerializer,
+    ApplicationDetailSerializer,
+)
 
 
 @extend_schema_view(
@@ -41,6 +43,6 @@ class ApplicationApi(
     queryset: QuerySet[Application] = Application.objects.all()
     queryset_detail = (
         Application.objects.only(*ApplicationDetailSerializer.Meta.fields)
-            .prefetch_related("responses")
-            .select_related("responses__field")
+        .prefetch_related("responses")
+        .select_related("responses__field")
     )
