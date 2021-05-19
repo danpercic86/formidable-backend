@@ -1,6 +1,11 @@
 from rest_framework.serializers import ModelSerializer
 
-from formidable.constants import CREATED, MODIFIED, NAME, ID
+from formidable.constants import (
+    CREATED,
+    MODIFIED,
+    NAME,
+    ID,
+)
 from formidable.models import Section
 from formidable.serializers.field import FieldSerializer
 

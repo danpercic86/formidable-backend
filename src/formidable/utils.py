@@ -1,4 +1,5 @@
 import datetime
+from pprint import pprint
 
 
 def get_upload_path(instance, file_name: str) -> str:
@@ -17,3 +18,9 @@ def get_upload_path(instance, file_name: str) -> str:
     model_name = model.verbose_name_plural.replace(" ", "_")
     file_name, extension = file_name.rsplit(".", 1)
     return f"{model_name}/{file_name}_{str(datetime.datetime.now())[:19]}.{extension}"
+
+
+def log(obj):
+    if isinstance(obj, list):
+        [pprint(element.__dict__) for element in obj]
+    pprint(obj.__dict__)

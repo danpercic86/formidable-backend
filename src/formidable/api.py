@@ -78,11 +78,10 @@ class ApplicationApi(
 
 @extend_schema_view(
     create=extend_schema(
-        request=NestedResponseCreateSerializer(many=True),
+        request=NestedResponseCreateSerializer,
         responses={status.HTTP_201_CREATED: ResponseDetailSerializer},
     )
 )
-class ResponseApi(NestedViewSetMixin, ModelViewSet):
+class NestedResponseApi(NestedViewSetMixin, ModelViewSet):
     serializer_class = NestedResponseCreateSerializer
-    permission_classes = (AllowAny,)
     queryset: QuerySet[Response] = Response.objects.all()
