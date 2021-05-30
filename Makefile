@@ -22,6 +22,9 @@ lint:
 superuser:
 	$(MANAGE_PY) shell -c "import createsuperuser"
 
+seed: config.yml
+	$(MANAGE_PY) shell -c "import random_seed"
+
 test:
 	poetry run coverage run $(BASE_DIR)/manage.py test tests --noinput --timing
 
