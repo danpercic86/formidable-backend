@@ -26,7 +26,7 @@ drf-extensions = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.8.3"
-black = "^21.5b1"
+black = "^21.5b2"
 pycodestyle = "^2.7.0"
 django-querycount = "^0.7.0"
 django-debug-toolbar = "^3.2.1"
