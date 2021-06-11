@@ -34,7 +34,7 @@ nplusone = "^1.0.0"
 django-extra-checks = "^0.11.0"
 factory-boy = "^3.2.0"
 coverage = { extras = ["toml"], version = "5.5" }
-mypy = "^0.901"
+mypy = "^0.902"
 django-extensions = "^3.1.3"
 
 [tool.black]
