@@ -358,7 +358,7 @@ djangorestframework = ">=3.9.3"
 
 [[package]]
 name = "drf-spectacular"
-version = "0.17.0"
+version = "0.17.1"
 description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework"
 category = "main"
 optional = false
@@ -746,7 +746,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "cb1db5d3ee20330626f23806e2360f43c4f02080ca55a206a1533cc5f1647556"
+content-hash = "9f005e19342b77207e3d356c23301defbe26f4a39be5f8e5c7bf3c784289bcbf"
 
 [metadata.files]
 appdirs = [
@@ -971,8 +971,8 @@ drf-extensions = [
     {file = "drf_extensions-0.7.0-py2.py3-none-any.whl", hash = "sha256:6bec775ebefca78e739939f8d9b2a282083de1c19798fce4bba54aa38cfc7677"},
 ]
 drf-spectacular = [
-    {file = "drf-spectacular-0.17.0.tar.gz", hash = "sha256:f552476dfde647963c21615249672e7f4f9ece3788036b5ee5c6cc5ad50748ab"},
-    {file = "drf_spectacular-0.17.0-py3-none-any.whl", hash = "sha256:4d35e890b8139e1c056588c5529a2f2066615635482563f0840b96d3b879d7d2"},
+    {file = "drf-spectacular-0.17.1.tar.gz", hash = "sha256:146e8c21dc806a20c84c687811c30163970fbf620213ab87280f7403469d80bb"},
+    {file = "drf_spectacular-0.17.1-py3-none-any.whl", hash = "sha256:8a028d251a6d0b39739ebdec487fd43ee4ecba244d8ffaaac43ff06430728dd8"},
 ]
 factory-boy = [
     {file = "factory_boy-3.2.0-py2.py3-none-any.whl", hash = "sha256:1d3db4b44b8c8c54cdd8b83ae4bdb9aeb121e464400035f1f03ae0e1eade56a4"},
