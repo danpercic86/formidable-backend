@@ -195,7 +195,7 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-admin-thumbnails"
-version = "0.2.5"
+version = "0.2.6"
 description = "A Django app for DRY thumbnails in admin list views and forms."
 category = "main"
 optional = false
@@ -746,7 +746,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "bc70b3599b840242aa20610a0073bc1a82133a22fc8e0512ddc2d70407bd4010"
+content-hash = "add4d070af9f490549f8283bbeff9c00eff4edf648ecbff840a67479d95610b8"
 
 [metadata.files]
 appdirs = [
@@ -919,7 +919,7 @@ django = [
     {file = "Django-3.2.4.tar.gz", hash = "sha256:66c9d8db8cc6fe938a28b7887c1596e42d522e27618562517cc8929eb7e7f296"},
 ]
 django-admin-thumbnails = [
-    {file = "django-admin-thumbnails-0.2.5.tar.gz", hash = "sha256:eadea467f9ea0d101edf7871cff6c0f667566ae94036636ef979ed66e7ab2fe3"},
+    {file = "django-admin-thumbnails-0.2.6.tar.gz", hash = "sha256:34aba117aef64c05d1a00193e4431f4033d8ec662a1b696c6e23e4168327def4"},
 ]
 django-allauth = [
     {file = "django-allauth-0.44.0.tar.gz", hash = "sha256:e51af457466022f52154d74c8523ac69375120fad2acce6e239635d85e610b25"},
