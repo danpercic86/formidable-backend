@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 Django = "^3.2.4"
-psycopg2-binary = "^2.8.6"
+psycopg2-binary = "^2.9.1"
 djangorestframework = "^3.12.4"
 django-cors-headers = "^3.7.0"
 Pillow = "^8.2.0"
