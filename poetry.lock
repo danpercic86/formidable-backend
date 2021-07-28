@@ -273,14 +273,14 @@ dev = ["pytest (>=6,<7)", "pytest-cov (>=2,<3)", "pytest-django (>=4,<5)", "Djan
 
 [[package]]
 name = "django-jazzmin"
-version = "2.4.7"
+version = "2.4.8"
 description = "Drop-in theme for django admin, that utilises AdminLTE 3 & Bootstrap 4 to make yo' admin look jazzy"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-django = ">=2"
+django = ">=2.2"
 
 [[package]]
 name = "django-model-utils"
@@ -758,7 +758,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "aaf6dcb1821c3c73b38cc57a6ad60242bdec31ad221f2dfad7f6f32a517ac8a9"
+content-hash = "b29440794e76f5616734b801df722b193a398df35b2ef56df32448cec64a7235"
 
 [metadata.files]
 appdirs = [
@@ -949,8 +949,8 @@ django-extra-checks = [
     {file = "django_extra_checks-0.11.0-py3-none-any.whl", hash = "sha256:b1a19c03243d67c380c8af60c1ef837323c21e2fd888e0fd532d1df5f1866ba0"},
 ]
 django-jazzmin = [
-    {file = "django-jazzmin-2.4.7.tar.gz", hash = "sha256:585d0c998875d6ada49ffa7b1bc6c21dcb90a53ba4d0f42f6b0d8fcfc212fa4c"},
-    {file = "django_jazzmin-2.4.7-py3-none-any.whl", hash = "sha256:90f3ceee87517aa4183d22eef8ec34067588a37ef02484ac47502865be211148"},
+    {file = "django-jazzmin-2.4.8.tar.gz", hash = "sha256:355b8ff5939555a7dbecaa364a54bbdbcc20f028605abedd6d9e2b6a4d1532b4"},
+    {file = "django_jazzmin-2.4.8-py3-none-any.whl", hash = "sha256:577b6ef97a51167dac94b12f340a1233b0e5e124c37bce25a7821ba61c22e6b8"},
 ]
 django-model-utils = [
     {file = "django-model-utils-4.1.1.tar.gz", hash = "sha256:eb5dd05ef7d7ce6bc79cae54ea7c4a221f6f81e2aad7722933aee66489e7264b"},
