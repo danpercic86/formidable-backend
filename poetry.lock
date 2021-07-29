@@ -19,7 +19,7 @@ tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
 
 [[package]]
 name = "astroid"
-version = "2.6.2"
+version = "2.6.5"
 description = "An abstract syntax tree for Python with inference support."
 category = "dev"
 optional = false
@@ -94,7 +94,7 @@ pycparser = "*"
 
 [[package]]
 name = "charset-normalizer"
-version = "2.0.2"
+version = "2.0.3"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 category = "main"
 optional = false
@@ -273,14 +273,14 @@ dev = ["pytest (>=6,<7)", "pytest-cov (>=2,<3)", "pytest-django (>=4,<5)", "Djan
 
 [[package]]
 name = "django-jazzmin"
-version = "2.4.7"
+version = "2.4.8"
 description = "Drop-in theme for django admin, that utilises AdminLTE 3 & Bootstrap 4 to make yo' admin look jazzy"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-django = ">=2"
+django = ">=2.2"
 
 [[package]]
 name = "django-model-utils"
@@ -361,7 +361,7 @@ djangorestframework = ">=3.9.3"
 
 [[package]]
 name = "drf-spectacular"
-version = "0.17.2"
+version = "0.17.3"
 description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework"
 category = "main"
 optional = false
@@ -392,7 +392,7 @@ doc = ["sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
 
 [[package]]
 name = "faker"
-version = "8.10.1"
+version = "8.10.3"
 description = "Faker is a Python package that generates fake data for you."
 category = "dev"
 optional = false
@@ -420,7 +420,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "isort"
-version = "5.9.2"
+version = "5.9.3"
 description = "A Python utility / library to sort Python imports."
 category = "dev"
 optional = false
@@ -517,11 +517,11 @@ signedtoken = ["cryptography (>=3.0.0,<4)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "pathspec"
-version = "0.8.1"
+version = "0.9.0"
 description = "Utility library for gitignore style pattern matching of file paths."
 category = "dev"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [[package]]
 name = "pillow"
@@ -574,14 +574,14 @@ tests = ["pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)"]
 
 [[package]]
 name = "pylint"
-version = "2.9.3"
+version = "2.9.6"
 description = "python code static checker"
 category = "dev"
 optional = false
 python-versions = "~=3.6"
 
 [package.dependencies]
-astroid = ">=2.6.2,<2.7"
+astroid = ">=2.6.5,<2.7"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.7"
@@ -712,7 +712,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "tomli"
-version = "1.0.4"
+version = "1.1.0"
 description = "A lil' TOML parser"
 category = "dev"
 optional = false
@@ -758,7 +758,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "aaf6dcb1821c3c73b38cc57a6ad60242bdec31ad221f2dfad7f6f32a517ac8a9"
+content-hash = "aa670c538f3901d2097acc50d6d28247f28f6dd11d05222c8701626a156207bd"
 
 [metadata.files]
 appdirs = [
@@ -770,8 +770,8 @@ asgiref = [
     {file = "asgiref-3.4.1.tar.gz", hash = "sha256:4ef1ab46b484e3c706329cedeff284a5d40824200638503f5768edb6de7d58e9"},
 ]
 astroid = [
-    {file = "astroid-2.6.2-py3-none-any.whl", hash = "sha256:606b2911d10c3dcf35e58d2ee5c97360e8477d7b9f3efc3f24811c93e6fc2cd9"},
-    {file = "astroid-2.6.2.tar.gz", hash = "sha256:38b95085e9d92e2ca06cf8b35c12a74fa81da395a6f9e65803742e6509c05892"},
+    {file = "astroid-2.6.5-py3-none-any.whl", hash = "sha256:7b963d1c590d490f60d2973e57437115978d3a2529843f160b5003b721e1e925"},
+    {file = "astroid-2.6.5.tar.gz", hash = "sha256:83e494b02d75d07d4e347b27c066fd791c0c74fc96c613d1ea3de0c82c48168f"},
 ]
 attrs = [
     {file = "attrs-21.2.0-py2.py3-none-any.whl", hash = "sha256:149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1"},
@@ -836,8 +836,8 @@ cffi = [
     {file = "cffi-1.14.6.tar.gz", hash = "sha256:c9a875ce9d7fe32887784274dd533c57909b7b1dcadcc128a2ac21331a9765dd"},
 ]
 charset-normalizer = [
-    {file = "charset-normalizer-2.0.2.tar.gz", hash = "sha256:951567c2f7433a70ab63f1be67e5ee05d3925d9423306ecb71a3b272757bcc95"},
-    {file = "charset_normalizer-2.0.2-py3-none-any.whl", hash = "sha256:3c502a35807c9df35697b0f44b1d65008f83071ff29c69677c7c22573bc5a45a"},
+    {file = "charset-normalizer-2.0.3.tar.gz", hash = "sha256:c46c3ace2d744cfbdebceaa3c19ae691f53ae621b39fd7570f59d14fb7f2fd12"},
+    {file = "charset_normalizer-2.0.3-py3-none-any.whl", hash = "sha256:88fce3fa5b1a84fdcb3f603d889f723d1dd89b26059d0123ca435570e848d5e1"},
 ]
 click = [
     {file = "click-8.0.1-py3-none-any.whl", hash = "sha256:fba402a4a47334742d782209a7c79bc448911afe1149d07bdabdf480b3e2f4b6"},
@@ -949,8 +949,8 @@ django-extra-checks = [
     {file = "django_extra_checks-0.11.0-py3-none-any.whl", hash = "sha256:b1a19c03243d67c380c8af60c1ef837323c21e2fd888e0fd532d1df5f1866ba0"},
 ]
 django-jazzmin = [
-    {file = "django-jazzmin-2.4.7.tar.gz", hash = "sha256:585d0c998875d6ada49ffa7b1bc6c21dcb90a53ba4d0f42f6b0d8fcfc212fa4c"},
-    {file = "django_jazzmin-2.4.7-py3-none-any.whl", hash = "sha256:90f3ceee87517aa4183d22eef8ec34067588a37ef02484ac47502865be211148"},
+    {file = "django-jazzmin-2.4.8.tar.gz", hash = "sha256:355b8ff5939555a7dbecaa364a54bbdbcc20f028605abedd6d9e2b6a4d1532b4"},
+    {file = "django_jazzmin-2.4.8-py3-none-any.whl", hash = "sha256:577b6ef97a51167dac94b12f340a1233b0e5e124c37bce25a7821ba61c22e6b8"},
 ]
 django-model-utils = [
     {file = "django-model-utils-4.1.1.tar.gz", hash = "sha256:eb5dd05ef7d7ce6bc79cae54ea7c4a221f6f81e2aad7722933aee66489e7264b"},
@@ -979,16 +979,16 @@ drf-extensions = [
     {file = "drf_extensions-0.7.0-py2.py3-none-any.whl", hash = "sha256:6bec775ebefca78e739939f8d9b2a282083de1c19798fce4bba54aa38cfc7677"},
 ]
 drf-spectacular = [
-    {file = "drf-spectacular-0.17.2.tar.gz", hash = "sha256:6ffbfde7d96a4a2febd19182cc405217e1e86a50280fc739402291c93d1a32b7"},
-    {file = "drf_spectacular-0.17.2-py3-none-any.whl", hash = "sha256:77593024bb899f69227abedcf87def7851a11c9978f781aa4b385a10f67a38b7"},
+    {file = "drf-spectacular-0.17.3.tar.gz", hash = "sha256:fb19aa69fcfcd37b0c9dfb9989c0671e1bb47af332ca2171378c7f840263788c"},
+    {file = "drf_spectacular-0.17.3-py3-none-any.whl", hash = "sha256:f080128c42183fcaed6b9e8e5afcd2e5cd68426b1f80bfc85938f25e62db7fe5"},
 ]
 factory-boy = [
     {file = "factory_boy-3.2.0-py2.py3-none-any.whl", hash = "sha256:1d3db4b44b8c8c54cdd8b83ae4bdb9aeb121e464400035f1f03ae0e1eade56a4"},
     {file = "factory_boy-3.2.0.tar.gz", hash = "sha256:401cc00ff339a022f84d64a4339503d1689e8263a4478d876e58a3295b155c5b"},
 ]
 faker = [
-    {file = "Faker-8.10.1-py3-none-any.whl", hash = "sha256:9ac6b39b9618f55be6b8b45089e624564469a035cc845c69ce990332ce3663f4"},
-    {file = "Faker-8.10.1.tar.gz", hash = "sha256:a665e6e2e9087ec9ad4ebcd2f09acd031b44193ee93401817001b6557c6502b4"},
+    {file = "Faker-8.10.3-py3-none-any.whl", hash = "sha256:f27a2a5c34042752f9d5fea2a9667aed5265d7d7bdd5ce83bc03b2f8a540d148"},
+    {file = "Faker-8.10.3.tar.gz", hash = "sha256:771b21ab55924867ac865f4b0c2f547c200172293b1056be16289584ef1215cb"},
 ]
 idna = [
     {file = "idna-3.2-py3-none-any.whl", hash = "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a"},
@@ -999,8 +999,8 @@ inflection = [
     {file = "inflection-0.5.1.tar.gz", hash = "sha256:1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417"},
 ]
 isort = [
-    {file = "isort-5.9.2-py3-none-any.whl", hash = "sha256:eed17b53c3e7912425579853d078a0832820f023191561fcee9d7cae424e0813"},
-    {file = "isort-5.9.2.tar.gz", hash = "sha256:f65ce5bd4cbc6abdfbe29afc2f0245538ab358c14590912df638033f157d555e"},
+    {file = "isort-5.9.3-py3-none-any.whl", hash = "sha256:e17d6e2b81095c9db0a03a8025a957f334d6ea30b26f9ec70805411e5c7c81f2"},
+    {file = "isort-5.9.3.tar.gz", hash = "sha256:9c2ea1e62d871267b78307fe511c0838ba0da28698c5732d54e2790bf3ba9899"},
 ]
 jsonschema = [
     {file = "jsonschema-3.2.0-py2.py3-none-any.whl", hash = "sha256:4e5b3cf8216f577bee9ce139cbe72eca3ea4f292ec60928ff24758ce626cd163"},
@@ -1072,8 +1072,8 @@ oauthlib = [
     {file = "oauthlib-3.1.1.tar.gz", hash = "sha256:8f0215fcc533dd8dd1bee6f4c412d4f0cd7297307d43ac61666389e3bc3198a3"},
 ]
 pathspec = [
-    {file = "pathspec-0.8.1-py2.py3-none-any.whl", hash = "sha256:aa0cb481c4041bf52ffa7b0d8fa6cd3e88a2ca4879c533c9153882ee2556790d"},
-    {file = "pathspec-0.8.1.tar.gz", hash = "sha256:86379d6b86d75816baba717e64b1a3a3469deb93bb76d613c9ce79edc5cb68fd"},
+    {file = "pathspec-0.9.0-py2.py3-none-any.whl", hash = "sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a"},
+    {file = "pathspec-0.9.0.tar.gz", hash = "sha256:e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1"},
 ]
 pillow = [
     {file = "Pillow-8.3.1-1-cp36-cp36m-win_amd64.whl", hash = "sha256:fd7eef578f5b2200d066db1b50c4aa66410786201669fb76d5238b007918fb24"},
@@ -1160,8 +1160,8 @@ pyjwt = [
     {file = "PyJWT-2.1.0.tar.gz", hash = "sha256:fba44e7898bbca160a2b2b501f492824fc8382485d3a6f11ba5d0c1937ce6130"},
 ]
 pylint = [
-    {file = "pylint-2.9.3-py3-none-any.whl", hash = "sha256:5d46330e6b8886c31b5e3aba5ff48c10f4aa5e76cbf9002c6544306221e63fbc"},
-    {file = "pylint-2.9.3.tar.gz", hash = "sha256:23a1dc8b30459d78e9ff25942c61bb936108ccbe29dd9e71c01dc8274961709a"},
+    {file = "pylint-2.9.6-py3-none-any.whl", hash = "sha256:2e1a0eb2e8ab41d6b5dbada87f066492bb1557b12b76c47c2ee8aa8a11186594"},
+    {file = "pylint-2.9.6.tar.gz", hash = "sha256:8b838c8983ee1904b2de66cce9d0b96649a91901350e956d78f289c3bc87b48e"},
 ]
 pyrsistent = [
     {file = "pyrsistent-0.18.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f4c8cabb46ff8e5d61f56a037974228e978f26bfefce4f61a4b1ac0ba7a2ab72"},
@@ -1298,8 +1298,8 @@ toml = [
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 tomli = [
-    {file = "tomli-1.0.4-py3-none-any.whl", hash = "sha256:0713b16ff91df8638a6a694e295c8159ab35ba93e3424a626dd5226d386057be"},
-    {file = "tomli-1.0.4.tar.gz", hash = "sha256:be670d0d8d7570fd0ea0113bd7bb1ba3ac6706b4de062cc4c952769355c9c268"},
+    {file = "tomli-1.1.0-py3-none-any.whl", hash = "sha256:f4a182048010e89cbec0ae4686b21f550a7f2903f665e34a6de58ec15424f919"},
+    {file = "tomli-1.1.0.tar.gz", hash = "sha256:33d7984738f8bb699c9b0a816eb646a8178a69eaa792d258486776a5d21b8ca5"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.0-py2-none-any.whl", hash = "sha256:0ac0f89795dd19de6b97debb0c6af1c70987fd80a2d62d1958f7e56fcc31b497"},
