@@ -25,7 +25,7 @@ djangorestframework-simplejwt = "^4.7.2"
 drf-extensions = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
-pylint = "^2.9.3"
+pylint = "^2.9.6"
 black = "^21.7b0"
 pycodestyle = "^2.7.0"
 django-querycount = "^0.7.0"
