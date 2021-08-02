@@ -22,7 +22,7 @@ django-jazzmin = "^2.4.8"
 django-tabular-permissions = "^2.8"
 dj-rest-auth = { extras = ["with_social"], version = "^2.1.9" }
 djangorestframework-simplejwt = "^4.7.2"
-drf-extensions = "^0.7.0"
+drf-extensions = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.9.6"
