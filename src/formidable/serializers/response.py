@@ -100,7 +100,7 @@ class NestedResponseCreateSerializer(Serializer):
 
     @staticmethod
     def _validate_response(
-            value: str, validators: QuerySet[Validator]
+        value: str, validators: QuerySet[Validator]
     ) -> Dict[str, List[ErrorDetail]]:
         errors = {}
 
@@ -112,7 +112,7 @@ class NestedResponseCreateSerializer(Serializer):
 
     @staticmethod
     def _check_required_fields(
-            fields: frozenset[Field], section: Section
+        fields: frozenset[Field], section: Section
     ) -> Dict[str, List[ErrorDetail]]:
         field_ids = frozenset(map(lambda field: field.id, fields))
         missing = section.fields.filter(is_required=True).exclude(id__in=field_ids)

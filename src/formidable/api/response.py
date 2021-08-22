@@ -21,7 +21,7 @@ from formidable.serializers.response import (
     ),
     list=extend_schema(
         responses={status.HTTP_200_OK: ResponseDetailSerializer(many=True)},
-    )
+    ),
 )
 class NestedResponseApi(NestedViewSetMixin, DetailSerializerMixin, ModelViewSet):
     serializer_class = NestedResponseCreateSerializer
@@ -29,6 +29,6 @@ class NestedResponseApi(NestedViewSetMixin, DetailSerializerMixin, ModelViewSet)
     queryset: QuerySet[Response] = Response.objects.all()
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action == "list":
             return ResponseDetailSerializer
         super().get_serializer_class()

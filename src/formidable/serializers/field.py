@@ -27,6 +27,6 @@ class FieldSerializer(ModelSerializer):
         exclude = CREATED, MODIFIED, SECTION
 
     def get_response(self, field: Field):
-        user: User = self.context['request'].user
+        user: User = self.context["request"].user
         response = field.responses.filter(application__applicant=user).first()
         return ResponseSerializer(response).data

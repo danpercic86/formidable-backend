@@ -108,7 +108,7 @@ AUTH_USER_MODEL = "administration.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation"
-                ".UserAttributeSimilarityValidator",
+        ".UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -334,7 +334,7 @@ REST_USE_JWT = True
 
 SIMPLE_JWT = {
     # how long the original token is valid for
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(days=1),
 }
 
 X_FRAME_OPTIONS = "sameorigin"
