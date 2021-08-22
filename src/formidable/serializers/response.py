@@ -29,7 +29,7 @@ class ResponseDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Response
-        fields: Tuple = ID, FIELD, VALUE, ERRORS
+        fields: Tuple = ID, FIELD, VALUE, ERRORS, STATUS
         read_only_fields = fields
 
 
@@ -69,7 +69,7 @@ class NestedResponseCreateSerializer(Serializer):
 
     def validate(self, attrs: OrderedDict):
         _, section, responses_data = attrs.values()  # type: User, Section, List[Dict]
-        fields = list(map(lambda x: x[FIELD], responses_data))
+        fields = frozenset(map(lambda x: x[FIELD], responses_data))
 
         self._check_same_section(fields, section)
         errors = self._check_required_fields(fields, section)
@@ -93,14 +93,14 @@ class NestedResponseCreateSerializer(Serializer):
         pass
 
     @staticmethod
-    def _check_same_section(fields: List[Field], section: Section) -> None:
+    def _check_same_section(fields: frozenset[Field], section: Section) -> None:
         for field in fields:
             if field.section != section:
                 raise ValidationError({"not_same_section": Errors.NotSameSection})
 
     @staticmethod
     def _validate_response(
-        value: str, validators: QuerySet[Validator]
+            value: str, validators: QuerySet[Validator]
     ) -> Dict[str, List[ErrorDetail]]:
         errors = {}
 
@@ -112,9 +112,9 @@ class NestedResponseCreateSerializer(Serializer):
 
     @staticmethod
     def _check_required_fields(
-        fields: List[Field], section: Section
+            fields: frozenset[Field], section: Section
     ) -> Dict[str, List[ErrorDetail]]:
-        field_ids = list(map(lambda field: field.id, fields))
+        field_ids = frozenset(map(lambda field: field.id, fields))
         missing = section.fields.filter(is_required=True).exclude(id__in=field_ids)
 
         return {str(field): Errors.RequiredField for field in missing}

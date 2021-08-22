@@ -1,5 +1,5 @@
+import datetime
 import os
-import sys
 from pathlib import Path
 from typing import Dict
 
@@ -95,11 +95,11 @@ DATABASES = {
     }
 }
 
-if "test" in sys.argv:
-    DATABASES["default"]["USER"] = "root"
-    DATABASES["default"]["PASSWORD"] = "toor"
-    DATABASES["default"]["HOST"] = "localhost"
-    DATABASES["default"]["PORT"] = "5555"
+# if "test" in sys.argv:
+#     DATABASES["default"]["USER"] = "root"
+#     DATABASES["default"]["PASSWORD"] = "toor"
+#     DATABASES["default"]["HOST"] = "localhost"
+#     DATABASES["default"]["PORT"] = "5555"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -108,7 +108,7 @@ AUTH_USER_MODEL = "administration.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation"
-        ".UserAttributeSimilarityValidator",
+                ".UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -331,6 +331,11 @@ AUTHENTICATION_BACKENDS = [
 
 # DJ REST AUTH SETTINGS
 REST_USE_JWT = True
+
+SIMPLE_JWT = {
+    # how long the original token is valid for
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
 
 X_FRAME_OPTIONS = "sameorigin"
 REST_FRAMEWORK_EXTENSIONS = {"DEFAULT_PARENT_LOOKUP_KWARG_NAME_PREFIX": "_"}

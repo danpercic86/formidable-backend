@@ -20,7 +20,7 @@ from formidable.constants import (
 from formidable.models import Application, Response, Field
 from formidable.serializers.response import (
     ResponseDetailSerializer,
-    NestedResponseCreateSerializer,
+    ResponseCreateSerializer,
 )
 
 
@@ -34,7 +34,7 @@ class ApplicationDetailSerializer(ModelSerializer):
 
 
 class ApplicationCreateSerializer(ModelSerializer):
-    responses = NestedResponseCreateSerializer(many=True)
+    responses = ResponseCreateSerializer(many=True)
     applicant = HiddenField(default=CurrentUserDefault())
 
     class Meta:

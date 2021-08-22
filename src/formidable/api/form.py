@@ -12,5 +12,5 @@ class FormApi(DetailSerializerMixin, ReadOnlyModelViewSet):
     serializer_class = FormSerializer
     serializer_detail_class = FormDetailSerializer
     permission_classes = (AllowAny,)
-    queryset: QuerySet[Form] = Form.objects.all()
+    queryset: QuerySet[Form] = Form.objects.prefetch_related("sections")
     queryset_detail = Form.objects.prefetch_related("sections")
