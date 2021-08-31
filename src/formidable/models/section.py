@@ -1,4 +1,5 @@
-from django.db.models import ForeignKey, CASCADE, CharField, TextField
+from ckeditor.fields import RichTextField
+from django.db.models import ForeignKey, CASCADE, CharField
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
 
@@ -15,7 +16,8 @@ class Section(TimeStampedModel, OrderableModel, BaseModel):
         related_query_name="section",
     )
     name = CharField(_("name"), max_length=200, blank=True, default="")
-    description = TextField(_("description"), max_length=500, blank=True, default="")
+    description = RichTextField(_("description"), max_length=1000, blank=True,
+                                default="")
     button_text = CharField(_("submit button text"), max_length=50, default="Submit")
 
     class Meta(OrderableModel.Meta):

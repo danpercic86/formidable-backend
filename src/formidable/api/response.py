@@ -31,4 +31,4 @@ class NestedResponseApi(NestedViewSetMixin, DetailSerializerMixin, ModelViewSet)
     def get_serializer_class(self):
         if self.action == "list":
             return ResponseDetailSerializer
-        super().get_serializer_class()
+        return super().get_serializer_class()

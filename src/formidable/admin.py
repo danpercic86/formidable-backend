@@ -18,7 +18,7 @@ from formidable.constants import (
     FIELD,
     VALUE,
     ERRORS,
-    OBSERVATIONS,
+    OBSERVATIONS, IS_ENABLED,
 )
 from formidable.forms import FieldAdminForm
 from formidable.inlines import (
@@ -84,7 +84,7 @@ class ApplicationAdmin(BaseModelAdmin):
 
 @register(Validator)
 class ValidatorAdmin(ModelAdmin):
-    pass
+    list_display = ("__str__", FIELD, TYPE, "constraint", IS_ENABLED)
 
 
 @register(Response)
