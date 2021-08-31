@@ -7,13 +7,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('formidable', '0021_alter_form_description'),
+        ("formidable", "0021_alter_form_description"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='section',
-            name='description',
-            field=ckeditor.fields.RichTextField(blank=True, default='', max_length=1000, verbose_name='description'),
+            model_name="section",
+            name="description",
+            field=ckeditor.fields.RichTextField(
+                blank=True, default="", max_length=1000, verbose_name="description"
+            ),
         ),
     ]
