@@ -23,6 +23,8 @@ django-tabular-permissions = "^2.8"
 dj-rest-auth = { extras = ["with_social"], version = "^2.1.11" }
 djangorestframework-simplejwt = "^4.8.0"
 drf-extensions = "^0.7.1"
+django-admin-sortable2 = "^1.0"
+django-ckeditor = "^6.1.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.10.2"

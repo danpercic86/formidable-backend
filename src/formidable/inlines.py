@@ -12,6 +12,11 @@ from formidable.constants import (
     DEPENDENT_VALUE,
     CHOICES,
     IS_REQUIRED,
+    BUTTON_TEXT,
+    STATUS,
+    VALUE,
+    ERRORS,
+    OBSERVATIONS,
 )
 from formidable.forms import FieldAdminForm
 from formidable.models import Field, Validator, Response, Section
@@ -20,6 +25,7 @@ from formidable.models import Field, Validator, Response, Section
 class SectionInline(TabularInline):
     model = Section
     extra = 0
+    exclude = (BUTTON_TEXT, "order_index")
 
 
 class FieldInline(StackedInline):
@@ -51,5 +57,11 @@ class ValidatorsInline(StackedInline):
 class ResponseInline(StackedInline):
     model = Response
     extra = 0
-    autocomplete_fields = (FIELD,)
-    readonly_fields = (STATUS_CHANGED, CREATED, MODIFIED)
+    fieldsets = (
+        (None, {"fields": (STATUS, FIELD, VALUE, ERRORS, OBSERVATIONS)}),
+        (
+            "Details",
+            {"fields": (STATUS_CHANGED, CREATED, MODIFIED), "classes": ("collapse",)},
+        ),
+    )
+    readonly_fields = (STATUS_CHANGED, CREATED, MODIFIED, FIELD)

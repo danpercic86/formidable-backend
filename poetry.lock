@@ -197,6 +197,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-admin-sortable2"
+version = "1.0"
+description = "Generic drag-and-drop sorting for the List, the Stacked- and the Tabular-Inlines Views in the Django Admin"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=1.8,<3.3"
+
+[[package]]
 name = "django-admin-thumbnails"
 version = "0.2.6"
 description = "A Django app for DRY thumbnails in admin list views and forms."
@@ -225,6 +236,17 @@ pyjwt = {version = ">=1.7", extras = ["crypto"]}
 python3-openid = ">=3.0.8"
 requests = "*"
 requests-oauthlib = ">=0.3.0"
+
+[[package]]
+name = "django-ckeditor"
+version = "6.1.0"
+description = "Django admin CKEditor integration."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+django-js-asset = ">=1.2.2"
 
 [[package]]
 name = "django-cors-headers"
@@ -281,6 +303,14 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 django = ">=2.2"
+
+[[package]]
+name = "django-js-asset"
+version = "1.2.2"
+description = "script tag with additional attributes for django.forms.Media"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "django-model-utils"
@@ -771,7 +801,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "44baef9dec27e4a6307f14873b11d40218e10ac8b6f62bb81379e5fd8774d5ee"
+content-hash = "f7e31345c9d8c0664833a3a6cc0275c4c02cc2cb0ffae18a6e4aae52738658cd"
 
 [metadata.files]
 appdirs = [
@@ -944,11 +974,19 @@ django = [
     {file = "Django-3.2.6-py3-none-any.whl", hash = "sha256:7f92413529aa0e291f3be78ab19be31aefb1e1c9a52cd59e130f505f27a51f13"},
     {file = "Django-3.2.6.tar.gz", hash = "sha256:f27f8544c9d4c383bbe007c57e3235918e258364577373d4920e9162837be022"},
 ]
+django-admin-sortable2 = [
+    {file = "django-admin-sortable2-1.0.tar.gz", hash = "sha256:e62624f5c8ea66d8564205abf2e4a46d862ee62f87103571004623b51d0e4ced"},
+    {file = "django_admin_sortable2-1.0-py3-none-any.whl", hash = "sha256:0a90bc3210d215fdb0696705c0f2705f8417d6f07d47cc24de71ee57061508e9"},
+]
 django-admin-thumbnails = [
     {file = "django-admin-thumbnails-0.2.6.tar.gz", hash = "sha256:34aba117aef64c05d1a00193e4431f4033d8ec662a1b696c6e23e4168327def4"},
 ]
 django-allauth = [
     {file = "django-allauth-0.44.0.tar.gz", hash = "sha256:e51af457466022f52154d74c8523ac69375120fad2acce6e239635d85e610b25"},
+]
+django-ckeditor = [
+    {file = "django-ckeditor-6.1.0.tar.gz", hash = "sha256:f0d108f67a81a04e26d8de11255fe314f51026eaf8eb0534a807512ae3c21620"},
+    {file = "django_ckeditor-6.1.0-py2.py3-none-any.whl", hash = "sha256:346b26b9d60dc8a88524d0eaaf406f4e91a4b3c22d208ae87aa032bf500b251c"},
 ]
 django-cors-headers = [
     {file = "django-cors-headers-3.8.0.tar.gz", hash = "sha256:4b8e13bf8d3df50ac4b986bd87085c3073dd56402ede109222ea34a774f9ec1b"},
@@ -969,6 +1007,10 @@ django-extra-checks = [
 django-jazzmin = [
     {file = "django-jazzmin-2.4.8.tar.gz", hash = "sha256:355b8ff5939555a7dbecaa364a54bbdbcc20f028605abedd6d9e2b6a4d1532b4"},
     {file = "django_jazzmin-2.4.8-py3-none-any.whl", hash = "sha256:577b6ef97a51167dac94b12f340a1233b0e5e124c37bce25a7821ba61c22e6b8"},
+]
+django-js-asset = [
+    {file = "django-js-asset-1.2.2.tar.gz", hash = "sha256:c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"},
+    {file = "django_js_asset-1.2.2-py2.py3-none-any.whl", hash = "sha256:8ec12017f26eec524cab436c64ae73033368a372970af4cf42d9354fcb166bdd"},
 ]
 django-model-utils = [
     {file = "django-model-utils-4.1.1.tar.gz", hash = "sha256:eb5dd05ef7d7ce6bc79cae54ea7c4a221f6f81e2aad7722933aee66489e7264b"},

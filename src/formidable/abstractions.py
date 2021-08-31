@@ -1,7 +1,7 @@
 from typing import AnyStr, Tuple, Dict
 
 from django.contrib.admin import ModelAdmin
-from django.db.models import Model, SlugField
+from django.db.models import Model, SlugField, PositiveIntegerField
 
 from formidable.constants import CREATED, MODIFIED, SLUG, NAME
 
@@ -56,3 +56,11 @@ class BaseModelAdmin(ModelAdmin):
 
 class SlugableModelAdmin(ModelAdmin):
     prepopulated_fields: Dict[str, Tuple[str, ...]] = {SLUG: (NAME,)}
+
+
+class OrderableModel(Model):
+    order_index = PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta:
+        abstract = True
+        ordering = ["order_index"]

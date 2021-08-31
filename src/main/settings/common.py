@@ -24,6 +24,9 @@ ALLOWED_HOSTS = config.get("ALLOWED_HOSTS", cast=list)
 INSTALLED_APPS = [
     "administration",
     "formidable",
+    "adminsortable2",
+    "ckeditor",
+    "ckeditor_uploader",
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
@@ -139,6 +142,9 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = "formidable.utils.get_filename"
 
 # Cross-Origin Resource Sharing
 # https://pypi.org/project/django-cors-headers/
@@ -310,7 +316,7 @@ JAZZMIN_SETTINGS: Dict = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    "changeform_format": "horizontal_tabs",
+    "changeform_format": "single",
     # override change forms on a per model admin basis
     "changeform_format_overrides": {
         "administration.user": "collapsible",

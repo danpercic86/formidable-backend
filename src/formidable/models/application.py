@@ -19,7 +19,7 @@ class Application(TimeStampedModel, StatusModel, BaseModel):
     )
     form = ForeignKey(
         Form,
-        verbose_name=_("form this response belongs to"),
+        verbose_name=_("form"),
         on_delete=CASCADE,
         related_name="applications",
         related_query_name="application",

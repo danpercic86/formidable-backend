@@ -24,3 +24,7 @@ def log(obj):
     if isinstance(obj, list):
         [pprint(element.__dict__) for element in obj]
     pprint(obj.__dict__)
+
+
+def get_filename(file_name: str):
+    return get_upload_path(None, file_name)

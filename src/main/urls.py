@@ -1,12 +1,12 @@
-from django.contrib import admin
 from django.conf import settings
+from django.conf.urls import url
+from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from django.views.generic import TemplateView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from formidable.urls import common_urls
-
 
 urlpatterns = [
     path("", RedirectView.as_view(pattern_name="admin:index", permanent=True)),
@@ -28,6 +28,7 @@ urlpatterns = [
         TemplateView.as_view(),
         name="password_reset_confirm",
     ),
+    url(r"^ckeditor/", include("ckeditor_uploader.urls")),
 ]
 
 if settings.DEBUG:

@@ -14,14 +14,14 @@ class Response(TimeStampedModel, StatusModel, BaseModel):
     field = ForeignKey(
         Field,
         on_delete=CASCADE,
-        verbose_name=_("field this response belongs to"),
+        verbose_name=_("field"),
         related_name="responses",
         related_query_name="response",
     )
     application = ForeignKey(
         Application,
         on_delete=CASCADE,
-        verbose_name=_("application this response belongs to"),
+        verbose_name=_("application"),
         related_name="responses",
         related_query_name="response",
     )
