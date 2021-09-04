@@ -17,8 +17,9 @@ class Section(TimeStampedModel, OrderableModel, BaseModel):
         related_query_name="section",
     )
     name = CharField(_("name"), max_length=200, blank=True, default="")
-    description = RichTextField(_("description"), max_length=1000, blank=True,
-                                default="")
+    description = RichTextField(
+        _("description"), max_length=1000, blank=True, default=""
+    )
     button_text = CharField(_("submit button text"), max_length=50, default="Submit")
     history = HistoricalRecords()
 

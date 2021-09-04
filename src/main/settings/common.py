@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     "administration",
     "formidable",
     "adminsortable2",
-    'simple_history',
+    "simple_history",
     "ckeditor",
     "ckeditor_uploader",
     "rest_framework",
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.contrib.admindocs.middleware.XViewMiddleware",
-    'simple_history.middleware.HistoryRequestMiddleware',
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "main.urls"
@@ -113,7 +113,7 @@ AUTH_USER_MODEL = "administration.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation"
-                ".UserAttributeSimilarityValidator",
+        ".UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",

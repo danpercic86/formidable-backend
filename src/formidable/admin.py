@@ -21,7 +21,8 @@ from formidable.constants import (
     FIELD,
     VALUE,
     ERRORS,
-    OBSERVATIONS, IS_ENABLED,
+    OBSERVATIONS,
+    IS_ENABLED,
 )
 from formidable.forms import FieldAdminForm
 from formidable.inlines import (
