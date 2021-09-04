@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from formidable.constants import CREATED, MODIFIED, ID, NAME, DESCRIPTION, SECTIONS
+from formidable.constants import ID, NAME, DESCRIPTION, SECTIONS
 from formidable.models import Form
 from formidable.serializers.section import SectionMinimalSerializer
 
@@ -10,7 +10,7 @@ class FormSerializer(ModelSerializer):
 
     class Meta:
         model = Form
-        exclude = CREATED, MODIFIED
+        exclude = "created", "modified"
 
 
 class FormDetailSerializer(ModelSerializer):

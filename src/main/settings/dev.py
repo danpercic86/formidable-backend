@@ -5,7 +5,6 @@ from main.settings.common import *
 INSTALLED_APPS += [
     "debug_toolbar",
     "nplusone.ext.django",
-    "extra_checks",
     "django_extensions",
 ]
 

@@ -1,15 +1,21 @@
-from django.db.models import CharField, ForeignKey, CASCADE
+from django.db.models import CharField, ForeignKey, CASCADE, Model
 from django.utils.translation import gettext as _
 from model_utils import Choices
 from model_utils.models import TimeStampedModel, StatusModel
+from simple_history.models import HistoricalRecords
 
 from formidable.abstractions import BaseModel
 from formidable.models import Field, Application
 
 
-class Response(TimeStampedModel, StatusModel, BaseModel):
+class ResponseStatuses(Model):
     STATUS = Choices(("new", _("new")), ("err", _("has errors")), ("ok", _("ok")))
 
+    class Meta:
+        abstract = True
+
+
+class Response(TimeStampedModel, ResponseStatuses, StatusModel, BaseModel):
     value = CharField(_("value"), max_length=500)
     field = ForeignKey(
         Field,
@@ -27,6 +33,7 @@ class Response(TimeStampedModel, StatusModel, BaseModel):
     )
     errors = CharField(_("errors"), max_length=500, default="", blank=True)
     observations = CharField(_("observations"), max_length=500, default="", blank=True)
+    history = HistoricalRecords(bases=(ResponseStatuses,))
 
     class Meta:
         db_table = "responses"

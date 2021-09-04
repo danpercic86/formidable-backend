@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "administration",
     "formidable",
     "adminsortable2",
+    'simple_history',
     "ckeditor",
     "ckeditor_uploader",
     "rest_framework",
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.contrib.admindocs.middleware.XViewMiddleware",
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = "main.urls"
@@ -111,7 +113,7 @@ AUTH_USER_MODEL = "administration.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation"
-        ".UserAttributeSimilarityValidator",
+                ".UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -217,7 +219,7 @@ JAZZMIN_SETTINGS: Dict = {
     # used for favicon and brand on top left
     # 'site_logo': 'books/img/logo.png',
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to Formidable Management & Verifying System",
+    # "welcome_sign": "Welcome to Formidable Management & Verifying System",
     # Copyright on the footer
     "copyright": "Dan Percic",
     # The model admin to search from the search bar, search bar omitted if excluded
@@ -273,16 +275,16 @@ JAZZMIN_SETTINGS: Dict = {
     # (does not need to contain all apps/models)
     # 'order_with_respect_to': ['auth', 'books', 'books.author', 'books.book'],
     # Custom links to append to app groups, keyed on app name
-    "custom_links": {
-        "administration": [
-            {
-                "name": "Make Messages",
-                "url": "make_messages",
-                "icon": "fas fa-comments",
-                # 'permissions': ['books.view_book'],
-            }
-        ]
-    },
+    # "custom_links": {
+    #     "administration": [
+    #         {
+    #             "name": "Make Messages",
+    #             "url": "make_messages",
+    #             "icon": "fas fa-comments",
+    #             # 'permissions': ['books.view_book'],
+    #         }
+    #     ]
+    # },
     # Custom icons for side menu apps/models
     # See https://fontawesome.com/icons?d=gallery&m=free
     # for a list of icon classes

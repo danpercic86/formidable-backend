@@ -1,4 +1,7 @@
+from typing import Tuple
+
 from django.contrib.admin import ModelAdmin, register
+from simple_history.admin import SimpleHistoryAdmin
 
 from formidable.abstractions import BaseModelAdmin
 from formidable.constants import (
@@ -61,9 +64,11 @@ class SectionAdmin(BaseModelAdmin):
 
 
 @register(Form)
-class FormAdmin(BaseModelAdmin):
+class FormAdmin(BaseModelAdmin, SimpleHistoryAdmin):
     inlines = (SectionInline,)
-    list_display = ("__str__", DESCRIPTION)
+    list_display = ("__str__", "description", "created", "modified")
+    list_filter: Tuple[str, ...] = ("created", "modified")
+    readonly_fields: Tuple[str, ...] = ("created", "modified")
 
 
 @register(Choice)

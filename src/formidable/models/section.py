@@ -2,6 +2,7 @@ from ckeditor.fields import RichTextField
 from django.db.models import ForeignKey, CASCADE, CharField
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
+from simple_history.models import HistoricalRecords
 
 from formidable.abstractions import BaseModel, OrderableModel
 from formidable.models.form import Form
@@ -19,6 +20,7 @@ class Section(TimeStampedModel, OrderableModel, BaseModel):
     description = RichTextField(_("description"), max_length=1000, blank=True,
                                 default="")
     button_text = CharField(_("submit button text"), max_length=50, default="Submit")
+    history = HistoricalRecords()
 
     class Meta(OrderableModel.Meta):
         db_table = "form_sections"

@@ -8,6 +8,7 @@ from django.db.models import (
 )
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
+from simple_history.models import HistoricalRecords
 
 from formidable.abstractions import BaseModel
 from formidable.constants import FieldTypes
@@ -41,6 +42,7 @@ class Field(TimeStampedModel, BaseModel):
         blank=True,
     )
     dependent_value = CharField(_("with value"), max_length=200, default="", blank=True)
+    history = HistoricalRecords()
 
     class Meta:
         db_table = "fields"
