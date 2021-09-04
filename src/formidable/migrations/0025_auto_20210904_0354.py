@@ -7,28 +7,35 @@ import formidable.utils
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('formidable', '0024_historicalapplication_historicalfield_historicalresponse_historicalsection'),
+        (
+            "formidable",
+            "0024_historicalapplication_historicalfield_historicalresponse_historicalsection",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='form',
-            name='avatar',
-            field=models.ImageField(blank=True, null=True, upload_to=formidable.utils.get_upload_path),
+            model_name="form",
+            name="avatar",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=formidable.utils.get_upload_path
+            ),
         ),
         migrations.AddField(
-            model_name='form',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to=formidable.utils.get_upload_path),
+            model_name="form",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=formidable.utils.get_upload_path
+            ),
         ),
         migrations.AddField(
-            model_name='historicalform',
-            name='avatar',
+            model_name="historicalform",
+            name="avatar",
             field=models.TextField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='historicalform',
-            name='image',
+            model_name="historicalform",
+            name="image",
             field=models.TextField(blank=True, max_length=100, null=True),
         ),
     ]
