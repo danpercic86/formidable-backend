@@ -62,11 +62,13 @@ class SectionAdmin(BaseModelAdmin):
     )
     list_editable = (BUTTON_TEXT,)
     list_filter = (CREATED, MODIFIED)
+    exclude = ("order_index", "button_text")
 
 
 @register(Form)
 class FormAdmin(BaseModelAdmin, SimpleHistoryAdmin):
     inlines = (SectionInline,)
+    exclude = ('order_index',)
     list_display = ("__str__", "description", "created", "modified")
     list_filter: Tuple[str, ...] = ("created", "modified")
     readonly_fields: Tuple[str, ...] = ("created", "modified")

@@ -10,12 +10,12 @@ from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
 from simple_history.models import HistoricalRecords
 
-from formidable.abstractions import BaseModel
+from formidable.abstractions import BaseModel, OrderableModel
 from formidable.constants import FieldTypes
 from formidable.models.section import Section
 
 
-class Field(TimeStampedModel, BaseModel):
+class Field(TimeStampedModel, OrderableModel, BaseModel):
     section = ForeignKey(
         Section,
         on_delete=CASCADE,
@@ -44,7 +44,7 @@ class Field(TimeStampedModel, BaseModel):
     dependent_value = CharField(_("with value"), max_length=200, default="", blank=True)
     history = HistoricalRecords()
 
-    class Meta:
+    class Meta(OrderableModel.Meta):
         db_table = "fields"
         verbose_name = _("field")
         verbose_name_plural = _("fields")

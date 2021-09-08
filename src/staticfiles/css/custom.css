@@ -1,3 +1,16 @@
 .select2 {
     width: auto !important;
 }
+
+.text-left {
+    padding-inline-start: 25px;
+    margin-block: auto;
+}
+
+.col-auto.fieldBox {
+    margin-block: auto;
+}
+
+.readonly {
+    margin-top: 0 !important;
+}

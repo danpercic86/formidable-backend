@@ -8,9 +8,6 @@ from formidable.constants import (
     NAME,
     TYPE,
     PLACEHOLDER,
-    DEPENDENT_FIELD,
-    DEPENDENT_VALUE,
-    CHOICES,
     IS_REQUIRED,
     BUTTON_TEXT,
     STATUS,
@@ -41,8 +38,6 @@ class FieldInline(StackedInline):
                     NAME,
                     PLACEHOLDER,
                     IS_REQUIRED,
-                    (DEPENDENT_FIELD, DEPENDENT_VALUE),
-                    CHOICES,
                 )
             },
         ),
@@ -58,10 +53,11 @@ class ResponseInline(StackedInline):
     model = Response
     extra = 0
     fieldsets = (
-        (None, {"fields": (STATUS, FIELD, VALUE, ERRORS, OBSERVATIONS)}),
+        (None, {"fields": ((FIELD, STATUS), VALUE, ERRORS, OBSERVATIONS)}),
         (
             "Details",
-            {"fields": (STATUS_CHANGED, CREATED, MODIFIED), "classes": ("collapse",)},
+            {"fields": ((STATUS_CHANGED, CREATED, MODIFIED),),
+             "classes": ("collapse",)},
         ),
     )
     readonly_fields = (STATUS_CHANGED, CREATED, MODIFIED, FIELD)
