@@ -68,7 +68,7 @@ class SectionAdmin(BaseModelAdmin):
 @register(Form)
 class FormAdmin(BaseModelAdmin, SimpleHistoryAdmin):
     inlines = (SectionInline,)
-    exclude = ('order_index',)
+    exclude = ("order_index",)
     list_display = ("__str__", "description", "created", "modified")
     list_filter: Tuple[str, ...] = ("created", "modified")
     readonly_fields: Tuple[str, ...] = ("created", "modified")

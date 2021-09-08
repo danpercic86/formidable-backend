@@ -34,7 +34,7 @@ class Application(TimeStampedModel, ApplicationStatusesModel, StatusModel, BaseM
     history = HistoricalRecords(bases=(ApplicationStatusesModel,))
 
     def __str__(self):
-        return str(self.applicant) + ' - ' + str(self.form)
+        return str(self.applicant) + " - " + str(self.form)
 
     class Meta:
         db_table = "applications"

@@ -56,8 +56,10 @@ class ResponseInline(StackedInline):
         (None, {"fields": ((FIELD, STATUS), VALUE, ERRORS, OBSERVATIONS)}),
         (
             "Details",
-            {"fields": ((STATUS_CHANGED, CREATED, MODIFIED),),
-             "classes": ("collapse",)},
+            {
+                "fields": ((STATUS_CHANGED, CREATED, MODIFIED),),
+                "classes": ("collapse",),
+            },
         ),
     )
     readonly_fields = (STATUS_CHANGED, CREATED, MODIFIED, FIELD)

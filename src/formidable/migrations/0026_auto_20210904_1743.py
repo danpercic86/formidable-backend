@@ -6,22 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('formidable', '0025_auto_20210904_0354'),
+        ("formidable", "0025_auto_20210904_0354"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='form',
-            options={'ordering': ['order_index'], 'verbose_name': 'form', 'verbose_name_plural': 'forms'},
+            name="form",
+            options={
+                "ordering": ["order_index"],
+                "verbose_name": "form",
+                "verbose_name_plural": "forms",
+            },
         ),
         migrations.AddField(
-            model_name='form',
-            name='order_index',
+            model_name="form",
+            name="order_index",
             field=models.PositiveIntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='historicalform',
-            name='order_index',
+            model_name="historicalform",
+            name="order_index",
             field=models.PositiveIntegerField(default=0),
         ),
     ]
