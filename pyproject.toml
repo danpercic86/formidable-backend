@@ -28,7 +28,7 @@ django-ckeditor = "^6.1.0"
 django-simple-history = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
-pylint = "^2.10.2"
+pylint = "^2.12.2"
 black = "^21.8b0"
 pycodestyle = "^2.7.0"
 django-querycount = "^0.7.0"
