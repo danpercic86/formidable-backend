@@ -29,7 +29,7 @@ django-simple-history = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.10.2"
-black = "^21.8b0"
+black = "^22.1"
 pycodestyle = "^2.7.0"
 django-querycount = "^0.7.0"
 django-debug-toolbar = "^3.2.2"
